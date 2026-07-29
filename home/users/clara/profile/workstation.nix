@@ -36,9 +36,26 @@ in {
     wineWow64Packages.staging
     winetricks
     mangohud
+    filezilla
+    sshfs
+    wl-clipboard
   ];
 
   programs = {
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+
+      settings = {
+        remi = {
+          HostName = "10.0.0.71";
+          User = "clara";
+          IdentityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
+          IdentitiesOnly = true;
+        };
+      };
+    };
+
     ghostty = {
       enable = true;
 

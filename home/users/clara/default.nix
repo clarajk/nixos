@@ -1,6 +1,10 @@
 {pkgs, ...}: let
   username = "clara";
 in {
+  imports = [
+    ./modules/shell.nix
+  ];
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
@@ -11,6 +15,7 @@ in {
     rustup
     ripgrep
     fd
+    lazygit
   ];
 
   programs = {
@@ -30,8 +35,4 @@ in {
       };
     };
   };
-
-  imports = [
-    ./modules/shell.nix
-  ];
 }
