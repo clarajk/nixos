@@ -66,6 +66,8 @@ in {
         theme = "noctalia";
 
         window-inherit-working-directory = false;
+
+        shell-integration-features = "ssh-env,ssh-terminfo";
       };
     };
   };

@@ -28,6 +28,11 @@
       url = "github:jgarza9788/niri-animation-collection";
       flake = false;
     };
+
+    fresh = {
+      url = "github:sinelaw/fresh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -101,11 +106,11 @@
         profile = "workstation";
       };
 
-      #server = mkHost {
-      #  hostname = "remi";
-      #  usernames = ["clara"];
-      #  profile = "server";
-      #};
+      server = mkHost {
+        hostname = "remi";
+        usernames = ["clara"];
+        profile = "server";
+      };
     };
   };
 }
