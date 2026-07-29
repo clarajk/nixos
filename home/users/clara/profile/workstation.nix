@@ -52,6 +52,9 @@ in {
           User = "clara";
           IdentityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
           IdentitiesOnly = true;
+          SetEnv = {
+            TERM = "xterm-256color";
+          };
         };
       };
     };
