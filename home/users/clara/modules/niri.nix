@@ -234,6 +234,16 @@ in {
       }
 
       {
+        matches = [
+          {
+            app-id = "^firefox$";
+          }
+        ];
+
+        open-maximized = true;
+      }
+
+      {
         # Subnautica 2
         matches = [
           {

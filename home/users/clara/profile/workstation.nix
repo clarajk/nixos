@@ -39,6 +39,8 @@ in {
     filezilla
     sshfs
     wl-clipboard
+    firefox
+    cava
   ];
 
   programs = {

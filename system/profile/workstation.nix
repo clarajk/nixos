@@ -26,8 +26,6 @@
     systemPackages = with pkgs; [
       nixd
       nil
-      cava
-      firefox
       just-lsp
       xwayland-satellite
     ];
