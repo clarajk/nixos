@@ -62,12 +62,18 @@
       };
       desktop = workstation.mkHost {
         hostname = "clara-desktop";
+        extra-modules = [
+          ./system/modules/docker.nix
+        ];
         users = [
           (workstation.mkUser "clara")
         ];
       };
       server = server.mkHost {
         hostname = "remi";
+        extra-modules = [
+          ./system/modules/docker.nix
+        ];
         users = [
           (server.mkUser "clara")
         ];

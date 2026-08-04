@@ -15,6 +15,7 @@ in {
     mkHost = {
       hostname,
       users,
+      extra-modules ? [],
     }:
       lib.nixosSystem {
         inherit system;
@@ -23,6 +24,7 @@ in {
 
         modules =
           base-modules
+          ++ extra-modules
           ++ [
             {
               home-manager = {
