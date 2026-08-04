@@ -1,7 +1,7 @@
 set shell := ["bash", "-euo", "pipefail", "-c"]
 set dotenv-load := false
 
-flake := home_directory() + "/nixos"
+flake := justfile_directory()
 
 # Show available recipes when running `just` without arguments.
 default:

@@ -244,11 +244,9 @@ in {
       }
 
       {
-        # Subnautica 2
-        matches = [
-          {
-            app-id = "^steam_app_1962700$";
-          }
+        matches = map (app-id: {inherit app-id;}) [
+          "^steam_app_1623730$" # Palworld
+          "^steam_app_1962700$" # Subnautica 2
         ];
 
         open-fullscreen = true;

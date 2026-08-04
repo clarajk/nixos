@@ -35,81 +35,42 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    niri,
-    noctalia,
-    noctalia-greeter,
-    home-manager,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
-    mkHost = {
-      hostname,
-      usernames,
-      profile,
-    }:
-      nixpkgs.lib.nixosSystem {
-        inherit system;
+    rivet = import ./lib/default.nix {
+      inherit (nixpkgs) lib;
+      inherit rivet inputs;
+    };
 
-        specialArgs = {
-          inherit inputs hostname system;
-        };
-
-        modules = [
-          niri.nixosModules.niri
-          noctalia.nixosModules.default
-          noctalia-greeter.nixosModules.default
-          home-manager.nixosModules.default
-
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "nix-bak";
-              extraSpecialArgs = {
-                inherit inputs hostname system;
-              };
-              users = nixpkgs.lib.genAttrs usernames (
-                username: {
-                  imports = [
-                    ./home/default.nix
-                    ./home/users/${username}/default.nix
-                    ./home/users/${username}/profile/${profile}.nix
-                  ];
-                }
-              );
-            };
-          }
-
-          ./system/default.nix
-          ./system/hosts/${hostname}/configuration.nix
-          ./system/profile/${profile}.nix
-        ];
-      };
+    linux = rivet.sys.mkSystem system;
+    workstation = linux "workstation";
+    server = linux "server";
   in {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
-      laptop = mkHost {
+      laptop = workstation.mkHost {
         hostname = "clara-laptop";
-        usernames = ["clara"];
-        profile = "workstation";
+        users = [
+          (workstation.mkUser "clara")
+        ];
       };
-
-      desktop = mkHost {
+      desktop = workstation.mkHost {
         hostname = "clara-desktop";
-        usernames = ["clara"];
-        profile = "workstation";
+        users = [
+          (workstation.mkUser "clara")
+        ];
       };
-
-      server = mkHost {
+      server = server.mkHost {
         hostname = "remi";
-        usernames = ["clara"];
-        profile = "server";
+        users = [
+          (server.mkUser "clara")
+        ];
       };
     };
   };

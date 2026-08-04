@@ -41,7 +41,20 @@ in {
     wl-clipboard
     firefox
     cava
+    prismlauncher
   ];
+
+  home.sessionVariables = {
+    BROWSER = "firefox";
+
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland,x11";
+
+    MOZ_ENABLE_WAYLAND = "1";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+  };
 
   programs = {
     ssh = {
