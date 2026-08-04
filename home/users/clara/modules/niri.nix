@@ -5,57 +5,51 @@
   hostname,
   ...
 }: let
-  laptop-binds = lib.optionalAttrs (hostname == "clara-laptop") {
-    "XF86MonBrightnessUp" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "brightnessctl"
-        "--class=backlight"
-        "set"
-        "+10%"
-      ];
+  extra-binds = {
+    clara-laptop = {
+      "XF86MonBrightnessUp" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "--class=backlight"
+          "set"
+          "+10%"
+        ];
+      };
+
+      "XF86MonBrightnessDown" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "--class=backlight"
+          "set"
+          "10%-"
+        ];
+      };
     };
 
-    "XF86MonBrightnessDown" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "brightnessctl"
-        "--class=backlight"
-        "set"
-        "10%-"
-      ];
-    };
+    clara-desktop = {};
   };
-in {
-  programs.niri.settings = {
-    input = {
-      keyboard.numlock = true;
-      touchpad = {
-        tap = true;
-        natural-scroll = true;
-      };
-      mouse = {
-        accel-speed = 0.4;
-        accel-profile = "flat";
+
+  outputs = {
+    clara-laptop = {
+      "eDP-1" = {
+        mode = {
+          width = 1920;
+          height = 1080;
+          refresh = 59.999;
+        };
+
+        position = {
+          x = 0;
+          y = 0;
+        };
+
+        scale = 1;
       };
     };
 
-    gestures.hot-corners.enable = false;
-    prefer-no-csd = true;
-    screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
-    hotkey-overlay.skip-at-startup = true;
-
-    layout = {
-      gaps = 8;
-      default-column-width = {
-        proportion = 0.5;
-      };
-      center-focused-column = "never";
-      focus-ring.width = 2;
-      border.enable = false;
-    };
-
-    outputs = {
+    clara-desktop = {
       "DP-1" = {
         mode = {
           width = 3440;
@@ -88,9 +82,40 @@ in {
         variable-refresh-rate = "on-demand";
       };
     };
+  };
+in {
+  programs.niri.settings = {
+    input = {
+      keyboard.numlock = true;
+      touchpad = {
+        tap = true;
+        natural-scroll = true;
+      };
+      mouse = {
+        accel-speed = 0.4;
+        accel-profile = "flat";
+      };
+    };
+
+    gestures.hot-corners.enable = false;
+    prefer-no-csd = true;
+    screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+    hotkey-overlay.skip-at-startup = true;
+
+    layout = {
+      gaps = 8;
+      default-column-width = {
+        proportion = 0.5;
+      };
+      center-focused-column = "never";
+      focus-ring.width = 2;
+      border.enable = false;
+    };
+
+    outputs = outputs.${hostname};
 
     binds =
-      laptop-binds
+      extra-binds.${hostname}
       // {
         "Mod+Return".action.spawn = "ghostty";
         "Mod+Space".action.spawn = ["noctalia" "msg" "panel-toggle" "launcher"];
