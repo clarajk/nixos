@@ -12,7 +12,7 @@
       options =
         options
         ++ ["defaults" "nofail"]
-        ++ lib.optional gvfs.enable [
+        ++ lib.optionals gvfs.enable [
           "x-gvfs-show"
           "x-gvfs-name=${name}"
         ];
