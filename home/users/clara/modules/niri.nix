@@ -259,6 +259,21 @@ in {
       }
 
       {
+        excludes = [
+          {
+            app-id = "^firefox$";
+            title = "YouTube";
+          }
+        ];
+
+        opacity = 0.90;
+        background-effect = {
+          blur = true;
+          xray = true;
+        };
+      }
+
+      {
         matches = [
           {
             app-id = "^firefox$";
@@ -266,6 +281,21 @@ in {
         ];
 
         open-maximized = true;
+      }
+
+      {
+        matches = [
+          {
+            app-id = "^firefox$";
+            title = "YouTube";
+          }
+        ];
+
+        opacity = 1.0;
+        background-effect = {
+          blur = false;
+          xray = false;
+        };
       }
 
       {
@@ -286,14 +316,20 @@ in {
         clip-to-geometry = false;
       }
     ];
+
+    blur = {
+      passes = 3;
+      offset = 3;
+      noise = 0.02;
+      saturation = 1.2;
+    };
+
+    includes = with config.lib.niri.include;
+      lib.mkAfter [
+        (optional "noctalia.kdl")
+        (optional "animations/fold-window.kdl")
+      ];
   };
 
   xdg.configFile."niri/animations".source = "${inputs.niri-animations}/animations";
-
-  xdg.configFile.niri-config.text = lib.mkForce ''
-    ${config.programs.niri.finalConfig}
-
-    include "noctalia.kdl"
-    include "animations/glide.kdl"
-  '';
 }

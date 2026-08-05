@@ -45,6 +45,7 @@ in {
     just
     cryptsetup
     usbutils
+    yazi
   ];
 
   users = {

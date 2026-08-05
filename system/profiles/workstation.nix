@@ -12,12 +12,18 @@
       inter
       lora
       nerd-fonts.jetbrains-mono
+      noto-fonts-color-emoji
     ];
 
-    fontconfig.defaultFonts = {
-      sansSerif = ["Inter"];
-      serif = ["Lora"];
-      monospace = ["JetBrainsMono Nerd Font"];
+    fontconfig = {
+      useEmbeddedBitmaps = true;
+
+      defaultFonts = {
+        sansSerif = ["Inter"];
+        serif = ["Lora"];
+        monospace = ["JetBrainsMono Nerd Font"];
+        emoji = ["Noto Color Emoji"];
+      };
     };
   };
 
