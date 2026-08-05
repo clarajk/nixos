@@ -46,37 +46,34 @@
       inherit (nixpkgs) lib;
       inherit rivet inputs;
     };
-
-    linux = rivet.sys.mkSystem system;
-    workstation = linux "workstation";
-    server = linux "server";
   in {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
-      laptop = workstation.mkHost {
-        hostname = "clara-laptop";
-        users = [
-          (workstation.mkUser "clara")
-        ];
-      };
-      desktop = workstation.mkHost {
+      desktop = rivet.sys.mkHost {
+        inherit system;
+
         hostname = "clara-desktop";
-        extra-modules = [
-          ./system/modules/docker.nix
-        ];
-        users = [
-          (workstation.mkUser "clara")
-        ];
+        usernames = ["clara"];
+        profiles = ["workstation"];
+        features = ["virtualization"];
       };
-      server = server.mkHost {
+
+      laptop = rivet.sys.mkHost {
+        inherit system;
+
+        hostname = "clara-laptop";
+        usernames = ["clara"];
+        profiles = ["workstation"];
+      };
+
+      server = rivet.sys.mkHost {
+        inherit system;
+
         hostname = "remi";
-        extra-modules = [
-          ./system/modules/docker.nix
-        ];
-        users = [
-          (server.mkUser "clara")
-        ];
+        usernames = ["clara"];
+        profiles = ["server"];
+        features = ["virtualization"];
       };
     };
   };

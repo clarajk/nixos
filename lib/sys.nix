@@ -11,49 +11,51 @@
     home-manager.nixosModules.default
   ];
 in {
-  mkSystem = system: profile: {
-    mkHost = {
-      hostname,
-      users,
-      extra-modules ? [],
-    }:
-      lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {inherit inputs hostname system rivet;};
-
-        modules =
-          base-modules
-          ++ extra-modules
-          ++ [
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "nix-bak";
-
-                extraSpecialArgs = {
-                  inherit inputs hostname system rivet;
-                };
-
-                users = lib.mergeAttrsList users;
-              };
-            }
-
-            ../system/default.nix
-            ../system/hosts/${hostname}/configuration.nix
-            ../system/profile/${profile}.nix
-          ];
-      };
-
-    mkUser = username: {
-      ${username} = {
-        imports = [
+  mkHost = {
+    hostname,
+    usernames,
+    system,
+    profiles ? [],
+    features ? [],
+  }: let
+    sys-profile-modules = map (profile: ../system/profiles/${profile}.nix) profiles;
+    mkHomeProfileModules = username: map (profile: ../home/users/${username}/profiles/${profile}.nix) profiles;
+    feature-modules = map (feature: ../system/features/${feature}.nix) features;
+    users-home = lib.genAttrs usernames (username: {
+      imports =
+        [
           ../home/default.nix
           ../home/users/${username}/default.nix
-          ../home/users/${username}/profile/${profile}.nix
-        ];
-      };
+        ]
+        ++ mkHomeProfileModules username;
+    });
+  in
+    lib.nixosSystem {
+      inherit system;
+
+      specialArgs = {inherit inputs hostname system rivet;};
+
+      modules =
+        [
+          ../system/default.nix
+          ../system/hosts/${hostname}/configuration.nix
+
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "nix-bak";
+
+              extraSpecialArgs = {
+                inherit inputs hostname system rivet;
+              };
+
+              users = users-home;
+            };
+          }
+        ]
+        ++ base-modules
+        ++ sys-profile-modules
+        ++ feature-modules;
     };
-  };
 }
