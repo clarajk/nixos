@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     niri = {
-      url = "github:epireyn/niri-flake";
+      url = "github:epireyn/niri-flake/very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

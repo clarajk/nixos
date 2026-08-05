@@ -20,7 +20,7 @@ test machine:
     sudo nixos-rebuild test --flake "{{flake}}#{{machine}}"
 
 # Validate the entire flake.
-check:
+check: fmt
     nix flake check "{{flake}}"
 
 # Format the flake using the formatter configured in the flake.

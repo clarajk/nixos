@@ -97,7 +97,12 @@ in {
       };
     };
 
-    gestures.hot-corners.enable = false;
+    gestures.hot-corners = {
+      bottom-left = false;
+      bottom-right = false;
+      top-left = false;
+      top-right = false;
+    };
     prefer-no-csd = true;
     screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
     hotkey-overlay.skip-at-startup = true;
@@ -324,11 +329,10 @@ in {
       saturation = 1.2;
     };
 
-    includes = with config.lib.niri.include;
-      lib.mkAfter [
-        (optional "noctalia.kdl")
-        (optional "animations/fold-window.kdl")
-      ];
+    includes = lib.mkAfter [
+      "noctalia.kdl"
+      "animations/fold-window.kdl"
+    ];
   };
 
   xdg.configFile."niri/animations".source = "${inputs.niri-animations}/animations";
