@@ -36,6 +36,7 @@
       statix
       just-lsp
       xwayland-satellite
+      bibata-cursors
     ];
   };
 
@@ -103,6 +104,14 @@
 
     noctalia-greeter = {
       enable = true;
+
+      settings = {
+        cursor = {
+          theme = "Bibata-Modern-Ice";
+          size = 24;
+          path = "${pkgs.bibata-cursors}/share/icons";
+        };
+      };
     };
 
     dconf.enable = true;

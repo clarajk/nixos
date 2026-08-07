@@ -7,6 +7,8 @@
     ./hardware-configuration.nix
   ];
 
+  programs.noctalia-greeter.settings.output.name = "DP-1";
+
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;

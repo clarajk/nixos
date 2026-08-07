@@ -13,42 +13,56 @@ in {
     ../modules/niri.nix
   ];
 
-  home.packages = with pkgs; [
-    adw-gtk3
-    papirus-icon-theme
-    bibata-cursors
-    qt6Packages.qt6ct
-    libsForQt5.qt5ct
-    kdePackages.breeze
-    kdePackages.breeze-icons
-    file-roller
-    zed-editor
-    loupe
-    celluloid
-    jetbrains.rust-rover
-    mediawriter
-    tor-browser
-    mullvad-vpn
-    playerctl
-    transmission_4-gtk
-    filezilla
-    sshfs
-    wl-clipboard
-    firefox
-    cava
-    codex
-  ];
+  home = {
+    packages = with pkgs; [
+      adw-gtk3
+      papirus-icon-theme
+      qt6Packages.qt6ct
+      libsForQt5.qt5ct
+      kdePackages.breeze
+      kdePackages.breeze-icons
+      file-roller
+      zed-editor
+      loupe
+      celluloid
+      jetbrains.rust-rover
+      mediawriter
+      tor-browser
+      mullvad-vpn
+      playerctl
+      transmission_4-gtk
+      filezilla
+      sshfs
+      wl-clipboard
+      firefox
+      cava
+      codex
+    ];
 
-  home.sessionVariables = {
-    BROWSER = "firefox";
+    sessionVariables = {
+      BROWSER = "firefox";
+      VISUAL = "zeditor";
 
-    GDK_BACKEND = "wayland,x11";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    SDL_VIDEODRIVER = "wayland,x11";
+      GDK_BACKEND = "wayland,x11";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      SDL_VIDEODRIVER = "wayland,x11";
 
-    MOZ_ENABLE_WAYLAND = "1";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      MOZ_ENABLE_WAYLAND = "1";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    };
+
+    activation.createScreenshotDirectory = config.lib.dag.entryAfter ["writeBoundary"] ''
+      mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots"}
+    '';
+
+    pointerCursor = {
+      enable = true;
+      package = pkgs.bibata-cursors;
+      name = cursor-theme;
+      size = cursor-size;
+      gtk.enable = true;
+    };
   };
 
   programs = {
@@ -85,21 +99,35 @@ in {
     };
   };
 
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
-  };
+  xdg = let
+    dotfiles-dir = "${config.home.homeDirectory}/nixos/dotfiles";
 
-  home.activation.createScreenshotDirectory = config.lib.dag.entryAfter ["writeBoundary"] ''
-    mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots"}
-  '';
+    dotfile = app: file: {
+      source = "${dotfiles-dir}/${app}/${file}";
+      stub = "${app}/${file}";
+    };
 
-  home.pointerCursor = {
-    enable = true;
-    package = pkgs.bibata-cursors;
-    name = cursor-theme;
-    size = cursor-size;
-    gtk.enable = true;
+    mkLink = dotfile: {source = config.lib.file.mkOutOfStoreSymlink dotfile.source;};
+
+    mkLinkAll = files:
+      lib.mergeAttrsList (
+        map
+        (file: {
+          ${file.stub} = mkLink file;
+        })
+        files
+      );
+
+    noctalia = dotfile "noctalia" "settings.toml";
+  in {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
+
+    stateFile = mkLinkAll [
+      noctalia
+    ];
   };
 
   programs.niri.settings.cursor = {
