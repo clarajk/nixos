@@ -8,7 +8,18 @@ enabled = true
 
 [bar.default]
 center = [ "group:g1", "Generic_Spacer", "clock", "Generic_Spacer", "weather" ]
-end = [ "group:g2", "group:g3", "clipboard", "notifications", "network", "bluetooth", "volume", "session" ]
+end = [
+    "group:g2",
+    "group:g3",
+    "clipboard",
+    "notifications",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "session"
+]
 margin_edge = 4
 margin_opposite_edge = 4
 panel_overlap = 0
