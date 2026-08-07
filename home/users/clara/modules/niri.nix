@@ -3,87 +3,13 @@
   lib,
   inputs,
   hostname,
+  rivet,
   ...
-}: let
-  extra-binds = {
-    clara-laptop = {
-      "XF86MonBrightnessUp" = {
-        allow-when-locked = true;
-        action.spawn = [
-          "brightnessctl"
-          "--class=backlight"
-          "set"
-          "+10%"
-        ];
-      };
+}: {
+  imports = [
+    ./niri/${hostname}.nix
+  ];
 
-      "XF86MonBrightnessDown" = {
-        allow-when-locked = true;
-        action.spawn = [
-          "brightnessctl"
-          "--class=backlight"
-          "set"
-          "10%-"
-        ];
-      };
-    };
-
-    clara-desktop = {};
-  };
-
-  outputs = {
-    clara-laptop = {
-      "eDP-1" = {
-        mode = {
-          width = 1920;
-          height = 1080;
-          refresh = 59.999;
-        };
-
-        position = {
-          x = 0;
-          y = 0;
-        };
-
-        scale = 1;
-      };
-    };
-
-    clara-desktop = {
-      "DP-1" = {
-        mode = {
-          width = 3440;
-          height = 1440;
-          refresh = 164.900;
-        };
-
-        position = {
-          x = 0;
-          y = 0;
-        };
-
-        scale = 1;
-        variable-refresh-rate = "on-demand";
-      };
-
-      "DP-2" = {
-        mode = {
-          width = 2560;
-          height = 1440;
-          refresh = 169.831;
-        };
-
-        position = {
-          x = 3440;
-          y = 0;
-        };
-
-        scale = 1;
-        variable-refresh-rate = "on-demand";
-      };
-    };
-  };
-in {
   programs.niri.settings = {
     input = {
       keyboard.numlock = true;
@@ -96,6 +22,10 @@ in {
         accel-profile = "flat";
       };
     };
+
+    spawn-at-startup = [
+      {argv = ["firefox"];}
+    ];
 
     gestures.hot-corners = {
       bottom-left = false;
@@ -115,144 +45,143 @@ in {
       center-focused-column = "never";
       focus-ring.width = 2;
       border.enable = false;
+      empty-workspace-above-first = true;
     };
 
-    outputs = outputs.${hostname};
+    binds = {
+      "Mod+Return".action.spawn = ["ghostty" "+new-window"];
+      "Mod+Space".action.spawn = ["noctalia" "msg" "panel-toggle" "launcher"];
+      "Mod+X".action.spawn = ["noctalia" "msg" "panel-toggle" "session"];
 
-    binds =
-      extra-binds.${hostname}
-      // {
-        "Mod+Return".action.spawn = "ghostty";
-        "Mod+Space".action.spawn = ["noctalia" "msg" "panel-toggle" "launcher"];
-        "Mod+X".action.spawn = ["noctalia" "msg" "panel-toggle" "session"];
-
-        "XF86AudioRaiseVolume" = {
-          allow-when-locked = true;
-          action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
-        };
-
-        "XF86AudioLowerVolume" = {
-          allow-when-locked = true;
-          action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-        };
-
-        "XF86AudioMute" = {
-          allow-when-locked = true;
-          action.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        };
-
-        "XF86AudioMicMute" = {
-          allow-when-locked = true;
-          action.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-        };
-
-        "XF86AudioPlay" = {
-          allow-when-locked = true;
-          action.spawn-sh = "playerctl play-pause";
-        };
-
-        "XF86AudioPause" = {
-          allow-when-locked = true;
-          action.spawn-sh = "playerctl play-pause";
-        };
-
-        "XF86AudioStop" = {
-          allow-when-locked = true;
-          action.spawn-sh = "playerctl stop";
-        };
-
-        "XF86AudioPrev" = {
-          allow-when-locked = true;
-          action.spawn-sh = "playerctl previous";
-        };
-
-        "XF86AudioNext" = {
-          allow-when-locked = true;
-          action.spawn-sh = "playerctl next";
-        };
-
-        "Mod+O" = {
-          repeat = false;
-          action.toggle-overview = {};
-        };
-
-        "Mod+Q" = {
-          repeat = false;
-          action.close-window = {};
-        };
-
-        "Mod+Left".action.focus-column-left = {};
-        "Mod+Down".action.focus-window-down = {};
-        "Mod+Up".action.focus-window-up = {};
-        "Mod+Right".action.focus-column-right = {};
-
-        "Mod+Ctrl+Left".action.move-column-left = {};
-        "Mod+Ctrl+Down".action.move-window-down = {};
-        "Mod+Ctrl+Up".action.move-window-up = {};
-        "Mod+Ctrl+Right".action.move-column-right = {};
-
-        "Mod+Shift+Ctrl+Left".action.move-window-to-monitor-left = {};
-        "Mod+Shift+Ctrl+Right".action.move-window-to-monitor-right = {};
-
-        "Mod+Shift+Left".action.focus-monitor-left = {};
-        "Mod+Shift+Down".action.focus-monitor-down = {};
-        "Mod+Shift+Up".action.focus-monitor-up = {};
-        "Mod+Shift+Right".action.focus-monitor-right = {};
-
-        "Mod+Shift+Page_Down".action.move-workspace-down = {};
-        "Mod+Shift+Page_Up".action.move-workspace-up = {};
-
-        "Mod+WheelScrollDown" = {
-          cooldown-ms = 150;
-          action.focus-workspace-down = {};
-        };
-
-        "Mod+WheelScrollUp" = {
-          cooldown-ms = 150;
-          action.focus-workspace-up = {};
-        };
-
-        "Mod+Ctrl+WheelScrollDown" = {
-          cooldown-ms = 150;
-          action.move-column-to-workspace-down = {};
-        };
-
-        "Mod+Ctrl+WheelScrollUp" = {
-          cooldown-ms = 150;
-          action.move-column-to-workspace-up = {};
-        };
-
-        "Mod+WheelScrollRight".action.focus-column-right = {};
-        "Mod+WheelScrollLeft".action.focus-column-left = {};
-        "Mod+Ctrl+WheelScrollRight".action.move-column-right = {};
-        "Mod+Ctrl+WheelScrollLeft".action.move-column-left = {};
-
-        "Mod+Shift+WheelScrollDown".action.focus-column-right = {};
-        "Mod+Shift+WheelScrollUp".action.focus-column-left = {};
-        "Mod+Ctrl+Shift+WheelScrollDown".action.move-column-right = {};
-        "Mod+Ctrl+Shift+WheelScrollUp".action.move-column-left = {};
-
-        "Mod+F".action.maximize-column = {};
-        "Mod+Shift+F".action.fullscreen-window = {};
-
-        "Mod+M".action.maximize-window-to-edges = {};
-
-        "Mod+Ctrl+F".action.expand-column-to-available-width = {};
-
-        "Mod+V".action.toggle-window-floating = {};
-        "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = {};
-
-        "Print".action.screenshot = {};
-
-        "Mod+Escape" = {
-          allow-inhibiting = false;
-          action.toggle-keyboard-shortcuts-inhibit = {};
-        };
-
-        "Ctrl+Alt+Delete".action.quit = {};
+      "XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
       };
 
-    window-rules = [
+      "XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+      };
+
+      "XF86AudioMute" = {
+        allow-when-locked = true;
+        action.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      };
+
+      "XF86AudioMicMute" = {
+        allow-when-locked = true;
+        action.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+      };
+
+      "XF86AudioPlay" = {
+        allow-when-locked = true;
+        action.spawn-sh = "playerctl play-pause";
+      };
+
+      "XF86AudioPause" = {
+        allow-when-locked = true;
+        action.spawn-sh = "playerctl play-pause";
+      };
+
+      "XF86AudioStop" = {
+        allow-when-locked = true;
+        action.spawn-sh = "playerctl stop";
+      };
+
+      "XF86AudioPrev" = {
+        allow-when-locked = true;
+        action.spawn-sh = "playerctl previous";
+      };
+
+      "XF86AudioNext" = {
+        allow-when-locked = true;
+        action.spawn-sh = "playerctl next";
+      };
+
+      "Mod+O" = {
+        repeat = false;
+        action.toggle-overview = {};
+      };
+
+      "Mod+Q" = {
+        repeat = false;
+        action.close-window = {};
+      };
+
+      "Mod+Left".action.focus-column-left = {};
+      "Mod+Down".action.focus-window-down = {};
+      "Mod+Up".action.focus-window-up = {};
+      "Mod+Right".action.focus-column-right = {};
+
+      "Mod+Ctrl+Left".action.move-column-left = {};
+      "Mod+Ctrl+Down".action.move-window-down = {};
+      "Mod+Ctrl+Up".action.move-window-up = {};
+      "Mod+Ctrl+Right".action.move-column-right = {};
+
+      "Mod+Shift+Ctrl+Left".action.move-window-to-monitor-left = {};
+      "Mod+Shift+Ctrl+Right".action.move-window-to-monitor-right = {};
+
+      "Mod+Shift+Left".action.focus-monitor-left = {};
+      "Mod+Shift+Down".action.focus-monitor-down = {};
+      "Mod+Shift+Up".action.focus-monitor-up = {};
+      "Mod+Shift+Right".action.focus-monitor-right = {};
+
+      "Mod+Shift+Page_Down".action.move-workspace-down = {};
+      "Mod+Shift+Page_Up".action.move-workspace-up = {};
+
+      "Mod+WheelScrollDown" = {
+        cooldown-ms = 150;
+        action.focus-workspace-down = {};
+      };
+
+      "Mod+WheelScrollUp" = {
+        cooldown-ms = 150;
+        action.focus-workspace-up = {};
+      };
+
+      "Mod+Ctrl+WheelScrollDown" = {
+        cooldown-ms = 150;
+        action.move-column-to-workspace-down = {};
+      };
+
+      "Mod+Ctrl+WheelScrollUp" = {
+        cooldown-ms = 150;
+        action.move-column-to-workspace-up = {};
+      };
+
+      "Mod+WheelScrollRight".action.focus-column-right = {};
+      "Mod+WheelScrollLeft".action.focus-column-left = {};
+      "Mod+Ctrl+WheelScrollRight".action.move-column-right = {};
+      "Mod+Ctrl+WheelScrollLeft".action.move-column-left = {};
+
+      "Mod+Shift+WheelScrollDown".action.focus-column-right = {};
+      "Mod+Shift+WheelScrollUp".action.focus-column-left = {};
+      "Mod+Ctrl+Shift+WheelScrollDown".action.move-column-right = {};
+      "Mod+Ctrl+Shift+WheelScrollUp".action.move-column-left = {};
+
+      "Mod+F".action.maximize-column = {};
+      "Mod+Shift+F".action.fullscreen-window = {};
+
+      "Mod+M".action.maximize-window-to-edges = {};
+
+      "Mod+Ctrl+F".action.expand-column-to-available-width = {};
+
+      "Mod+V".action.toggle-window-floating = {};
+      "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = {};
+
+      "Print".action.screenshot = {};
+
+      "Mod+Escape" = {
+        allow-inhibiting = false;
+        action.toggle-keyboard-shortcuts-inhibit = {};
+      };
+
+      "Ctrl+Alt+Delete".action.quit = {};
+    };
+
+    window-rules = let
+      inherit (rivet.niri) app-ids;
+    in [
       {
         geometry-corner-radius = {
           top-left = 8.0;
@@ -264,9 +193,19 @@ in {
       }
 
       {
+        matches = app-ids [
+          "^firefox$"
+          "^dev.zed.Zed$"
+          "^steam$"
+        ];
+
+        open-maximized = true;
+      }
+
+      {
         excludes = [
           {
-            app-id = "^firefox$";
+            app-id = "^firefox(-youtube)?$";
             title = "YouTube";
           }
         ];
@@ -281,17 +220,7 @@ in {
       {
         matches = [
           {
-            app-id = "^firefox$";
-          }
-        ];
-
-        open-maximized = true;
-      }
-
-      {
-        matches = [
-          {
-            app-id = "^firefox$";
+            app-id = "^firefox(-youtube)?$";
             title = "YouTube";
           }
         ];
@@ -302,24 +231,6 @@ in {
           xray = false;
         };
       }
-
-      {
-        matches = map (app-id: {inherit app-id;}) [
-          "^steam_app_1623730$" # Palworld
-          "^steam_app_1962700$" # Subnautica 2
-        ];
-
-        open-fullscreen = true;
-        focus-ring.enable = false;
-        border.enable = false;
-        geometry-corner-radius = {
-          top-left = 0.0;
-          top-right = 0.0;
-          bottom-right = 0.0;
-          bottom-left = 0.0;
-        };
-        clip-to-geometry = false;
-      }
     ];
 
     blur = {
@@ -328,6 +239,8 @@ in {
       noise = 0.02;
       saturation = 1.2;
     };
+
+    debug.honor-xdg-activation-with-invalid-serial = true;
 
     includes = lib.mkAfter [
       "noctalia.kdl"

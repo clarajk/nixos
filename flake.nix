@@ -55,8 +55,7 @@
 
         hostname = "clara-desktop";
         usernames = ["clara"];
-        profiles = ["workstation"];
-        features = ["virtualization"];
+        profiles = ["workstation" "virtualization" "gaming"];
       };
 
       laptop = rivet.sys.mkHost {
@@ -72,8 +71,7 @@
 
         hostname = "remi";
         usernames = ["clara"];
-        profiles = ["server"];
-        features = ["virtualization"];
+        profiles = ["server" "virtualization"];
       };
     };
   };

@@ -32,6 +32,8 @@
     systemPackages = with pkgs; [
       nixd
       nil
+      deadnix
+      statix
       just-lsp
       xwayland-satellite
     ];
@@ -55,9 +57,17 @@
     };
   };
 
+  systemd.user.services.niri-flake-polkit.enable = false;
+
+  security = {
+    pam.services.login.enableGnomeKeyring = true;
+    polkit.enable = true;
+  };
+
   services = {
     tumbler.enable = true;
     mullvad-vpn.enable = true;
+    gnome.gnome-keyring.enable = true;
 
     pipewire = {
       enable = true;
@@ -79,20 +89,6 @@
         thunar-vcs-plugin
         thunar-volman
       ];
-    };
-
-    steam = {
-      enable = true;
-      protontricks.enable = true;
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-      ];
-    };
-
-    gamemode.enable = true;
-    gamescope = {
-      enable = true;
-      capSysNice = true;
     };
 
     niri = {

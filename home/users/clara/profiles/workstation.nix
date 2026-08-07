@@ -25,23 +25,18 @@ in {
     zed-editor
     loupe
     celluloid
-    steam-run
     jetbrains.rust-rover
     mediawriter
     tor-browser
     mullvad-vpn
     playerctl
     transmission_4-gtk
-    lutris
-    wineWow64Packages.staging
-    winetricks
-    mangohud
     filezilla
     sshfs
     wl-clipboard
     firefox
     cava
-    prismlauncher
+    codex
   ];
 
   home.sessionVariables = {

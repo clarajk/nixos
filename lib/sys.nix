@@ -16,11 +16,9 @@ in {
     usernames,
     system,
     profiles ? [],
-    features ? [],
   }: let
     sys-profile-modules = map (profile: ../system/profiles/${profile}.nix) profiles;
     mkHomeProfileModules = username: map (profile: ../home/users/${username}/profiles/${profile}.nix) profiles;
-    feature-modules = map (feature: ../system/features/${feature}.nix) features;
     users-home = lib.genAttrs usernames (username: {
       imports =
         [
@@ -55,7 +53,6 @@ in {
           }
         ]
         ++ base-modules
-        ++ sys-profile-modules
-        ++ feature-modules;
+        ++ sys-profile-modules;
     };
 }

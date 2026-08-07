@@ -46,6 +46,7 @@ in {
     cryptsetup
     usbutils
     yazi
+    jq
   ];
 
   users = {
@@ -70,10 +71,7 @@ in {
     gvfs.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
-    gnome.gnome-keyring.enable = true;
   };
-
-  security.pam.services.login.enableGnomeKeyring = true;
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -84,7 +82,7 @@ in {
 
   nix = {
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes" "pipe-operators"];
       auto-optimise-store = true;
       warn-dirty = false;
     };
