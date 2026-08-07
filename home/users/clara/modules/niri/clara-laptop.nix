@@ -1,5 +1,9 @@
 {
   programs.niri.settings = {
+    switch-events = {
+      lid-close.action.spawn = ["noctalia" "msg" "session" "lock-and-suspend"];
+    };
+
     outputs = {
       "eDP-1" = {
         mode = {
