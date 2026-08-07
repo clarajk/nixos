@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  rivet,
+  ...
+}: {
   hardware = {
     bluetooth.enable = true;
     graphics = {
@@ -8,20 +12,15 @@
   };
 
   fonts = {
-    packages = with pkgs; [
-      inter
-      lora
-      nerd-fonts.jetbrains-mono
-      noto-fonts-color-emoji
-    ];
+    inherit (rivet.theme.fonts) packages;
 
     fontconfig = {
       useEmbeddedBitmaps = true;
 
-      defaultFonts = {
-        sansSerif = ["Inter"];
+      defaultFonts = with rivet.theme.fonts; {
+        sansSerif = [sans-serif];
         serif = ["Lora"];
-        monospace = ["JetBrainsMono Nerd Font"];
+        monospace = [monospace];
         emoji = ["Noto Color Emoji"];
       };
     };
@@ -107,9 +106,9 @@
 
       settings = {
         cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-          path = "${pkgs.bibata-cursors}/share/icons";
+          theme = rivet.theme.cursor.theme;
+          size = rivet.theme.cursor.size;
+          path = "${rivet.theme.cursor.package}/share/icons";
         };
       };
     };

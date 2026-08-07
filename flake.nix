@@ -44,7 +44,7 @@
 
     rivet = import ./lib/default.nix {
       inherit (nixpkgs) lib;
-      inherit rivet inputs;
+      inherit rivet inputs pkgs;
     };
   in {
     formatter.${system} = pkgs.alejandra;

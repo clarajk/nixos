@@ -2,12 +2,10 @@
   pkgs,
   config,
   lib,
+  rivet,
   ...
 }: let
-  gtk-theme = "adw-gtk3-dark";
-  icon-theme = "Papirus-Dark";
-  cursor-theme = "Bibata-Modern-Ice";
-  cursor-size = 24;
+  inherit (rivet.theme) gtk-theme icon-theme cursor;
 in {
   imports = [
     ../modules/niri.nix
@@ -59,8 +57,8 @@ in {
     pointerCursor = {
       enable = true;
       package = pkgs.bibata-cursors;
-      name = cursor-theme;
-      size = cursor-size;
+      name = cursor.theme;
+      size = cursor.size;
       gtk.enable = true;
     };
   };
@@ -87,7 +85,7 @@ in {
       enable = true;
 
       settings = {
-        font-family = "JetBrainsMono Nerd Font";
+        font-family = rivet.theme.fonts.monospace;
         font-size = 12;
 
         theme = "noctalia";
@@ -131,13 +129,15 @@ in {
   };
 
   programs.niri.settings.cursor = {
-    theme = cursor-theme;
-    size = cursor-size;
+    theme = cursor.theme;
+    size = cursor.size;
   };
 
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
-    inherit gtk-theme icon-theme cursor-theme cursor-size;
+    inherit gtk-theme icon-theme;
+    cursor-theme = cursor.theme;
+    cursor-size = cursor.size;
   };
 
   gtk = {
@@ -154,7 +154,7 @@ in {
     };
 
     font = {
-      name = "Inter";
+      name = rivet.theme.fonts.sans-serif;
       size = 12;
     };
   };
