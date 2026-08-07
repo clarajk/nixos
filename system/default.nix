@@ -51,6 +51,7 @@ in {
     pciutils
     yazi
     jq
+    iw
   ];
 
   users = {
