@@ -9,6 +9,7 @@
 in {
   imports = [
     ../modules/niri.nix
+    ../modules/noctalia.nix
   ];
 
   home = {
@@ -52,6 +53,7 @@ in {
 
     activation.createScreenshotDirectory = config.lib.dag.entryAfter ["writeBoundary"] ''
       mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots"}
+      mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Wallpapers"}
     '';
 
     pointerCursor = {
@@ -97,41 +99,12 @@ in {
     };
   };
 
-  xdg = let
-    dotfiles-dir = "${config.home.homeDirectory}/nixos/dotfiles";
-
-    dotfile = app: file: {
-      source = "${dotfiles-dir}/${app}/${file}";
-      stub = "${app}/${file}";
-    };
-
-    mkLink = dotfile: {source = config.lib.file.mkOutOfStoreSymlink dotfile.source;};
-
-    mkLinkAll = files:
-      lib.mergeAttrsList (
-        map
-        (file: {
-          ${file.stub} = mkLink file;
-        })
-        files
-      );
-
-    noctalia = dotfile "noctalia" "settings.toml";
-  in {
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-    };
-
-    stateFile = mkLinkAll [
-      noctalia
-    ];
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
   };
 
-  programs.niri.settings.cursor = {
-    theme = cursor.theme;
-    size = cursor.size;
-  };
+  programs.niri.settings.cursor = {inherit (cursor) theme size;};
 
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";

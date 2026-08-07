@@ -105,9 +105,9 @@
       enable = true;
 
       settings = {
+        output.scale = 1.0;
         cursor = {
-          theme = rivet.theme.cursor.theme;
-          size = rivet.theme.cursor.size;
+          inherit (rivet.theme.cursor) theme size;
           path = "${rivet.theme.cursor.package}/share/icons";
         };
       };
