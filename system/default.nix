@@ -8,7 +8,10 @@
 in {
   networking = {
     wireless.enable = true;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
     hostName = hostname;
   };
 
@@ -45,6 +48,7 @@ in {
     just
     cryptsetup
     usbutils
+    pciutils
     yazi
     jq
   ];
