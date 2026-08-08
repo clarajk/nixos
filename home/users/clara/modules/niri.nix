@@ -12,6 +12,7 @@
 
   programs.niri.settings = {
     input = {
+      focus-follows-mouse.enable = true;
       keyboard.numlock = true;
       touchpad = {
         tap = true;
@@ -245,8 +246,36 @@
     includes = lib.mkAfter [
       "noctalia.kdl"
       "animations/fold-window.kdl"
+      "inkwell.kdl"
     ];
   };
 
-  xdg.configFile."niri/animations".source = "${inputs.niri-animations}/animations";
+  xdg.configFile = {
+    "niri/animations".source = "${inputs.niri-animations}/animations";
+
+    "niri/inkwell.kdl".text = let
+      openShader = builtins.readFile ../../../../assets/shaders/inkwell-drop-open.glsl;
+      closeShader = builtins.readFile ../../../../assets/shaders/inkwell-drop-close.glsl;
+    in ''
+      animations {
+        window-open {
+          duration-ms 1500
+          curve "ease-out-cubic"
+
+          custom-shader r#"
+      ${openShader}
+          "#
+        }
+
+        window-close {
+          duration-ms 1500
+          curve "ease-out-cubic"
+
+          custom-shader r#"
+      ${closeShader}
+          "#
+        }
+      }
+    '';
+  };
 }
