@@ -13,6 +13,9 @@ in {
   ];
 
   home = {
+    file."Pictures/avatar.jpg".source = ../../../../assets/avatar.jpg;
+    file."Pictures/Wallpapers".source = ../../../../assets/wallpapers;
+
     packages = with pkgs; [
       adw-gtk3
       papirus-icon-theme
