@@ -10,6 +10,15 @@ in {
     ./hardware-configuration.nix
   ];
 
+  networking = {
+    nftables.enable = true;
+
+    firewall.extraInputRules = ''
+      ip saddr 10.0.0.0/24 tcp dport 27017 accept
+      ip saddr 10.0.0.0/24 tcp dport 9091 accept
+    '';
+  };
+
   systemd.tmpfiles.rules = let
     pathsFor = group: paths: map (path: "d ${path} 2775 ${group} media -") paths;
 
@@ -48,6 +57,11 @@ in {
       mongodb = {
         enable = true;
         dbpath = "/mnt/storage/mongodb";
+
+        bind_ip = "127.0.0.1,10.0.0.71";
+
+        package = pkgs.mongodb-ce;
+        mongoshPackage = pkgs.mongosh;
       };
 
       openssh = mkEnabled {
@@ -79,7 +93,7 @@ in {
             incomplete-dir = "${downloads}/incomplete";
             incomplete-dir-enabled = true;
 
-            rpc-bind-address = "0.0.0.0";
+            rpc-bind-address = "10.0.0.71";
             rpc-port = 9091;
 
             rpc-whitelist-enabled = true;
