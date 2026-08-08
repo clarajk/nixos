@@ -149,6 +149,7 @@ in {
       "prowlarr"
       "transmission"
       "plex"
+      "mongodb"
     ];
   in
     rivet.svc.mkUnitAll mkNetworkUnit network-units {}
