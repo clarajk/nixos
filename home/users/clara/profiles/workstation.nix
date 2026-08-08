@@ -3,6 +3,7 @@
   config,
   lib,
   rivet,
+  hostname,
   ...
 }: let
   inherit (rivet.theme) gtk-theme icon-theme cursor;
@@ -88,17 +89,27 @@ in {
 
     ghostty = {
       enable = true;
+      systemd.enable = true;
+      enableZshIntegration = true;
 
-      settings = {
-        font-family = rivet.theme.fonts.monospace;
-        font-size = 12;
+      settings =
+        {
+          font-family = rivet.theme.fonts.monospace;
+          font-size = 12;
 
-        theme = "noctalia";
+          theme = "noctalia";
 
-        window-inherit-working-directory = false;
+          window-inherit-working-directory = false;
 
-        shell-integration-features = "ssh-env,ssh-terminfo";
-      };
+          shell-integration-features = "ssh-env,ssh-terminfo";
+        }
+        // lib.optionalAttrs (hostname == "clara-desktop") {
+          quit-after-last-window-closed = false;
+        }
+        // lib.optionalAttrs (hostname == "clara-laptop") {
+          quit-after-last-window-closed = true;
+          quit-after-last-window-closed-delay = "5m";
+        };
     };
   };
 
