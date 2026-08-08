@@ -32,6 +32,8 @@ in {
     ];
 
   services = let
+    inherit (rivet.svc) mkEnabled;
+
     media-services = [
       "radarr"
       "sonarr"
@@ -41,9 +43,14 @@ in {
   in
     rivet.svc.mkEnabledAll media-services {group = "media";}
     // {
-      prowlarr = rivet.svc.mkEnabled {};
+      prowlarr = mkEnabled {};
 
-      openssh = rivet.svc.mkEnabled {
+      mongodb = {
+        enable = true;
+        dbpath = "/mnt/storage/mongodb";
+      };
+
+      openssh = mkEnabled {
         config.settings = {
           PermitRootLogin = "no";
           PasswordAuthentication = false;
@@ -52,7 +59,7 @@ in {
         };
       };
 
-      adguardhome = rivet.svc.mkEnabled {
+      adguardhome = mkEnabled {
         config = {
           mutableSettings = true;
           port = 3000;
@@ -60,7 +67,7 @@ in {
         };
       };
 
-      transmission = rivet.svc.mkEnabled {
+      transmission = mkEnabled {
         group = "media";
         config = {
           package = pkgs.transmission_4;
@@ -88,7 +95,7 @@ in {
         };
       };
 
-      navidrome = rivet.svc.mkEnabled {
+      navidrome = mkEnabled {
         group = "media";
         config.settings = {
           Address = "0.0.0.0";

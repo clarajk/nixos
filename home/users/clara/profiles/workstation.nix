@@ -36,6 +36,8 @@ in {
         firefox
         cava
         codex
+        mongosh
+        mongodb-compass
       ]
       ++ rivet.theme.packages;
 

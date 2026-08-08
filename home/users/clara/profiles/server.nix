@@ -1,9 +1,16 @@
 {
   inputs,
   system,
+  pkgs,
   ...
-}: {
-  home.packages = [
-    inputs.fresh.packages.${system}.default
+}: let
+  input-pkgs = with inputs; [
+    fresh.packages.${system}.default
   ];
+
+  regular-pkgs = with pkgs; [
+    mongosh
+  ];
+in {
+  home.packages = input-pkgs ++ regular-pkgs;
 }
