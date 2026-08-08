@@ -98,6 +98,7 @@ in {
           font-size = 12;
 
           theme = "noctalia";
+          custom-shader = "cursor-smear.glsl";
 
           window-inherit-working-directory = false;
 
@@ -113,9 +114,13 @@ in {
     };
   };
 
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
+
+    configFile."ghostty/cursor-smear.glsl".source = ../../../../assets/shaders/cursor-smear.glsl;
   };
 
   programs.niri.settings.cursor = {inherit (cursor) theme size;};
