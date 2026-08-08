@@ -16,6 +16,7 @@ in {
     firewall.extraInputRules = ''
       ip saddr 10.0.0.0/24 tcp dport 27017 accept
       ip saddr 10.0.0.0/24 tcp dport 9091 accept
+      ip saddr 10.0.0.0/24 tcp dport 4533 accept
     '';
   };
 
@@ -112,7 +113,7 @@ in {
       navidrome = mkEnabled {
         group = "media";
         config.settings = {
-          Address = "0.0.0.0";
+          Address = "10.0.0.71";
           Port = 4533;
 
           MusicFolder = "${media-root}/music";

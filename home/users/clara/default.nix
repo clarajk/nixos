@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   username = "clara";
 in {
   imports = [
@@ -9,14 +13,29 @@ in {
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "26.05";
-  };
 
-  home.packages = with pkgs; [
-    rustup
-    ripgrep
-    fd
-    lazygit
-  ];
+    packages = with pkgs; [
+      rustup
+      ripgrep
+      fd
+      lazygit
+    ];
+
+    activation.setup-rustup = let
+      rustup = "${pkgs.rustup}/bin/rustup";
+      rg = "${pkgs.ripgrep}/bin/rg";
+      toolchain = "stable";
+    in
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if ! ${rustup} toolchain list | ${rg} -q "^${toolchain}"; then
+          ${rustup} toolchain default ${toolchain}
+        fi
+
+        if ! ${rustup} component list --toolchain ${toolchain} | ${rg} -q "^rust-src \\(installed\\)$"; then
+          ${rustup} component add rust-src --toolchain ${toolchain}
+        fi
+      '';
+  };
 
   programs = {
     gh = {

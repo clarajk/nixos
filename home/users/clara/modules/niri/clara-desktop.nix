@@ -19,6 +19,7 @@
 
         open-fullscreen = true;
         open-on-workspace = "youtube";
+        open-focused = true;
       }
 
       {

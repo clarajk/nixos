@@ -54,9 +54,14 @@ in {
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
     };
 
-    activation.createScreenshotDirectory = config.lib.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots"}
-    '';
+    activation.create-screenshot-directory = let
+      screenshot-dir = lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots";
+    in
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -d ${screenshot-dir} ]; then
+          mkdir -p ${screenshot-dir}
+        fi
+      '';
 
     pointerCursor = {
       enable = true;

@@ -27,9 +27,10 @@ check: fmt
 fmt:
     nix fmt "{{flake}}"
 
-# Update every flake input.
+# Update every flake input (including Rust toolchain).
 update:
     nix flake update --flake "{{flake}}"
+    rustup update
 
 # Update one specific input.
 update-input input:
