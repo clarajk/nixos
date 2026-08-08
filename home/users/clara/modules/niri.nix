@@ -196,7 +196,7 @@
       {
         matches = app-ids [
           "^firefox$"
-          "^dev.zed.Zed$"
+          "^dev\.zed\.Zed$"
           "^steam$"
         ];
 
@@ -254,25 +254,28 @@
     "niri/animations".source = "${inputs.niri-animations}/animations";
 
     "niri/inkwell.kdl".text = let
-      openShader = builtins.readFile ../../../../assets/shaders/inkwell-drop-open.glsl;
-      closeShader = builtins.readFile ../../../../assets/shaders/inkwell-drop-close.glsl;
+      open-shader = builtins.readFile ../../../../assets/shaders/inkwell-drop-open.glsl;
+      close-shader = builtins.readFile ../../../../assets/shaders/inkwell-drop-close.glsl;
+
+      duration = 1500;
+      easing = "ease-out-cubic";
     in ''
       animations {
         window-open {
-          duration-ms 1500
-          curve "ease-out-cubic"
+          duration-ms ${duration}
+          curve ${easing}
 
           custom-shader r#"
-      ${openShader}
+      ${open-shader}
           "#
         }
 
         window-close {
-          duration-ms 1500
-          curve "ease-out-cubic"
+          duration-ms ${duration}
+          curve ${easing}
 
           custom-shader r#"
-      ${closeShader}
+      ${close-shader}
           "#
         }
       }

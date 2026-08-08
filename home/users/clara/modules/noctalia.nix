@@ -161,7 +161,10 @@
 
     wallpaper = {
       transition_on_startup = true;
-      automation.enabled = true;
+      automation = {
+        enabled = true;
+        interval_seconds = 300;
+      };
     };
 
     shell = {
