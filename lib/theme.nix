@@ -2,6 +2,15 @@
   gtk-theme = "adw-gtk3-dark";
   icon-theme = "Papirus-Dark";
 
+  packages = with pkgs; [
+    adw-gtk3
+    papirus-icon-theme
+    qt6Packages.qt6ct
+    libsForQt5.qt5ct
+    kdePackages.breeze
+    kdePackages.breeze-icons
+  ];
+
   cursor = {
     package = pkgs.bibata-cursors;
     theme = "Bibata-Modern-Ice";

@@ -11,36 +11,33 @@ in {
   imports = [
     ../modules/niri.nix
     ../modules/noctalia.nix
+    ../modules/zed.nix
   ];
 
   home = {
     file."Pictures/avatar.jpg".source = ../../../../assets/avatar.jpg;
     file."Pictures/Wallpapers".source = ../../../../assets/wallpapers;
 
-    packages = with pkgs; [
-      adw-gtk3
-      papirus-icon-theme
-      qt6Packages.qt6ct
-      libsForQt5.qt5ct
-      kdePackages.breeze
-      kdePackages.breeze-icons
-      file-roller
-      zed-editor
-      loupe
-      celluloid
-      jetbrains.rust-rover
-      mediawriter
-      tor-browser
-      mullvad-vpn
-      playerctl
-      transmission_4-gtk
-      filezilla
-      sshfs
-      wl-clipboard
-      firefox
-      cava
-      codex
-    ];
+    packages = with pkgs;
+      [
+        file-roller
+        zed-editor
+        loupe
+        celluloid
+        jetbrains.rust-rover
+        mediawriter
+        tor-browser
+        mullvad-vpn
+        playerctl
+        transmission_4-gtk
+        filezilla
+        sshfs
+        wl-clipboard
+        firefox
+        cava
+        codex
+      ]
+      ++ rivet.theme.packages;
 
     sessionVariables = {
       BROWSER = "firefox";
@@ -57,12 +54,11 @@ in {
 
     activation.createScreenshotDirectory = config.lib.dag.entryAfter ["writeBoundary"] ''
       mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Screenshots"}
-      mkdir -p ${lib.escapeShellArg "${config.xdg.userDirs.pictures}/Wallpapers"}
     '';
 
     pointerCursor = {
       enable = true;
-      package = pkgs.bibata-cursors;
+      inherit (cursor) package;
       name = cursor.theme;
       size = cursor.size;
       gtk.enable = true;

@@ -257,13 +257,13 @@
       open-shader = builtins.readFile ../../../../assets/shaders/inkwell-drop-open.glsl;
       close-shader = builtins.readFile ../../../../assets/shaders/inkwell-drop-close.glsl;
 
-      duration = 1500;
+      duration = toString 1500;
       easing = "ease-out-cubic";
     in ''
       animations {
         window-open {
           duration-ms ${duration}
-          curve ${easing}
+          curve "${easing}"
 
           custom-shader r#"
       ${open-shader}
@@ -272,7 +272,7 @@
 
         window-close {
           duration-ms ${duration}
-          curve ${easing}
+          curve "${easing}"
 
           custom-shader r#"
       ${close-shader}
