@@ -1,4 +1,10 @@
-{rivet, ...}: let
+{
+  pkgs,
+  rivet,
+  ...
+}: let
+  json = pkgs.formats.json {};
+
   zed-config = let
     inherit (rivet.theme.fonts) sans-serif monospace;
   in {
@@ -22,5 +28,5 @@
     };
   };
 in {
-  xdg.configFile."zed/settings.json".text = builtins.toJSON zed-config;
+  xdg.configFile."zed/settings.json".source = json.generate "settings.json" zed-config;
 }
