@@ -8,7 +8,7 @@
 }: let
   toml = pkgs.formats.toml {};
 
-  host-config = import ./noctalia/${hostname}.nix;
+  host-config = import ./noctalia/${hostname}.nix {inherit lib;};
   global-config = {
     audio.enable_sounds = true;
     backdrop.enabled = true;
@@ -73,7 +73,6 @@
         "lockscreen-widget-0000000000000002" = {
           box_height = 48.0;
           box_width = 256.0;
-          output = "DP-1";
           rotation = 0.0;
           type = "clock";
 

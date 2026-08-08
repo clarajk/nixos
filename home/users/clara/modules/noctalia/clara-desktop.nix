@@ -1,27 +1,26 @@
-let
-  widget-name = "lockscreen-login-box@DP-1";
+{lib}: let
+  lockscreen = import ./lockscreen.nix {inherit lib;};
+  output = "DP-1";
+  cx = 1720;
 in {
-  lockscreen.monitors = ["DP-1"];
+  lockscreen.monitors = [output];
 
-  lockscreen_widgets = {
-    widget_order = [widget-name];
-    widget = {
-      ${widget-name} = {
-        output = "DP-1";
-        cx = 1720;
+  lockscreen_widgets = lockscreen.mkWidgets {
+    inherit output;
+    positions = [
+      {
+        inherit cx;
         cy = 720;
-      };
-      "lockscreen-widget-0000000000000001" = {
-        output = "DP-1";
-        cx = 1720;
-        cy = 468.5;
-      };
-      "lockscreen-widget-0000000000000002" = {
-        output = "DP-1";
-        cx = 1720.0;
-        cy = 513.0;
-      };
-    };
+      }
+      {
+        inherit cx;
+        cy = 468;
+      }
+      {
+        inherit cx;
+        cy = 513;
+      }
+    ];
   };
 
   bar.default = {
