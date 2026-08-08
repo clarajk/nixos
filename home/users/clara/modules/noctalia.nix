@@ -34,9 +34,7 @@
       widget = let
         login-box = {
           box_height = 196;
-          box_width = 720;
-          cx = 1720;
-          cy = 720;
+          box_width = 920;
           rotation = 0.0;
           type = "login_box";
 
@@ -52,7 +50,7 @@
             show_login_button = true;
             show_media = true;
             show_session_buttons = true;
-            show_unlock_hint = true;
+            show_unlock_hint = false;
             show_weather = true;
           };
         };
@@ -63,8 +61,6 @@
         "lockscreen-widget-0000000000000001" = {
           box_height = 0.0;
           box_width = 0.0;
-          cx = 1720;
-          cy = 468.5;
           rotation = 0.0;
           type = "clock";
 
@@ -77,8 +73,6 @@
         "lockscreen-widget-0000000000000002" = {
           box_height = 48.0;
           box_width = 256.0;
-          cx = 1720.0;
-          cy = 513.0;
           output = "DP-1";
           rotation = 0.0;
           type = "clock";

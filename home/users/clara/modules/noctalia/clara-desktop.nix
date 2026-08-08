@@ -6,9 +6,21 @@ in {
   lockscreen_widgets = {
     widget_order = [widget-name];
     widget = {
-      ${widget-name}.output = "DP-1";
-      "lockscreen-widget-0000000000000001".output = "DP-1";
-      "lockscreen-widget-0000000000000002".output = "DP-1";
+      ${widget-name} = {
+        output = "DP-1";
+        cx = 1720;
+        cy = 720;
+      };
+      "lockscreen-widget-0000000000000001" = {
+        output = "DP-1";
+        cx = 1720;
+        cy = 468.5;
+      };
+      "lockscreen-widget-0000000000000002" = {
+        output = "DP-1";
+        cx = 1720.0;
+        cy = 513.0;
+      };
     };
   };
 

@@ -3,6 +3,23 @@ let
 in {
   lockscreen_widgets = {
     widget_order = [widget-name];
+    widget = {
+      ${widget-name} = {
+        output = "DP-1";
+        cx = 960;
+        cy = 468;
+      };
+      "lockscreen-widget-0000000000000001" = {
+        output = "DP-1";
+        cx = 960;
+        cy = 468.5;
+      };
+      "lockscreen-widget-0000000000000002" = {
+        output = "DP-1";
+        cx = 960.0;
+        cy = 513.0;
+      };
+    };
   };
 
   bar.default = {
