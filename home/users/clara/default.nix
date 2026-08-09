@@ -19,6 +19,10 @@ in {
       ripgrep
       fd
       lazygit
+      gnupg
+      gum
+      pass
+      openssh
     ];
 
     activation.setup-rustup = let

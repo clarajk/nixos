@@ -40,9 +40,7 @@
 
     layout = {
       gaps = 8;
-      default-column-width = {
-        proportion = 0.5;
-      };
+      default-column-width.proportion = 0.5;
       center-focused-column = "never";
       focus-ring.width = 2;
       border.enable = false;

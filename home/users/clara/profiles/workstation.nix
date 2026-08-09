@@ -64,10 +64,10 @@ in {
       '';
 
     pointerCursor = {
+      inherit (cursor) package size;
+
       enable = true;
-      inherit (cursor) package;
       name = cursor.theme;
-      inherit (cursor) size;
       gtk.enable = true;
     };
   };
@@ -129,8 +129,9 @@ in {
   programs.niri.settings.cursor = {inherit (cursor) theme size;};
 
   dconf.settings."org/gnome/desktop/interface" = {
-    color-scheme = "prefer-dark";
     inherit gtk-theme icon-theme;
+
+    color-scheme = "prefer-dark";
     cursor-theme = cursor.theme;
     cursor-size = cursor.size;
   };
