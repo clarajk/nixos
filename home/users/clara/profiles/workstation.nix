@@ -67,7 +67,7 @@ in {
       enable = true;
       inherit (cursor) package;
       name = cursor.theme;
-      size = cursor.size;
+      inherit (cursor) size;
       gtk.enable = true;
     };
   };

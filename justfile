@@ -35,3 +35,13 @@ update:
 # Update one specific input.
 update-input input:
     nix flake update "{{input}}" --flake "{{flake}}"
+
+# Lint all nix files in the repository.
+lint:
+    -statix check .
+    -deadnix .
+
+# Fix all lint issues automatically.
+lint-fix:
+    statix fix .
+    deadnix --edit .

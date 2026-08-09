@@ -212,7 +212,7 @@
   };
 in {
   options.rivet.noctalia.settings = lib.mkOption {
-    type = toml.type;
+    inherit (toml) type;
     default = {};
     internal = true;
   };
