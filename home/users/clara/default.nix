@@ -35,7 +35,7 @@ in {
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
         if ! ${rustup} toolchain list | ${rg} -q "^${toolchain}"; then
-          ${rustup} toolchain default ${toolchain}
+          ${rustup} default ${toolchain}
         fi
 
         if ! ${rustup} component list --toolchain ${toolchain} | ${rg} -q "^rust-src \\(installed\\)$"; then
