@@ -3,11 +3,13 @@
     workspaces = {
       youtube.open-on-output = "DP-2";
       utilities.open-on-output = "DP-2";
+      zulip.open-on-output = "DP-2";
     };
 
     spawn-at-startup = [
       {argv = ["transmission-gtk"];}
       {argv = ["solaar"];}
+      {argv = ["zulip"];}
       {sh = "MOZ_APP_REMOTINGNAME=firefox-youtube firefox --no-remote -P youtube";}
     ];
 
@@ -29,6 +31,15 @@
         ];
 
         open-on-workspace = "utilities";
+        open-focused = false;
+      }
+
+      {
+        matches = app-ids [
+          "^zulip$"
+        ];
+
+        open-on-workspace = "zulip";
         open-focused = false;
       }
 

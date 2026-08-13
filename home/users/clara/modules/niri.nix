@@ -196,6 +196,7 @@
           "^firefox$"
           "^dev\.zed\.Zed$"
           "^steam$"
+          "^zulip$"
         ];
 
         open-maximized = true;
