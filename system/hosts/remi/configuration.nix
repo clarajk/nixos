@@ -59,7 +59,7 @@ in {
         enable = true;
         dbpath = "/mnt/storage/mongodb";
 
-        bind_ip = "127.0.0.1,10.0.0.71";
+        bind_ip = "0.0.0.0";
 
         package = pkgs.mongodb-ce;
         mongoshPackage = pkgs.mongosh;
@@ -94,7 +94,7 @@ in {
             incomplete-dir = "${downloads}/incomplete";
             incomplete-dir-enabled = true;
 
-            rpc-bind-address = "10.0.0.71";
+            rpc-bind-address = "0.0.0.0";
             rpc-port = 9091;
 
             rpc-whitelist-enabled = true;
@@ -113,7 +113,7 @@ in {
       navidrome = mkEnabled {
         group = "media";
         config.settings = {
-          Address = "10.0.0.71";
+          Address = "0.0.0.0";
           Port = 4533;
 
           MusicFolder = "${media-root}/music";
