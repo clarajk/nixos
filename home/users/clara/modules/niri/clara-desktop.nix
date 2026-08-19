@@ -47,6 +47,7 @@
         matches = app-ids [
           "^steam_app_1623730$" # Palworld
           "^steam_app_1962700$" # Subnautica 2
+          "^Minecraft"
         ];
 
         open-fullscreen = true;
