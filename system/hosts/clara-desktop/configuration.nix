@@ -1,22 +1,16 @@
-{
-  pkgs,
-  rivet,
-  ...
-}: {
+{rivet, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  programs.noctalia-greeter.settings.output.name = "DP-1";
+  programs = {
+    noctalia-greeter.settings.output.name = "DP-1";
+    solaar.enable = true;
+  };
 
   hardware.logitech.wireless = {
     enable = true;
-    enableGraphical = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    solaar
-  ];
 
   fileSystems =
     rivet.fs.mkFsAll rivet.fs.mkNtfs [

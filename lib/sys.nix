@@ -6,6 +6,7 @@
 }: let
   base-modules = with inputs; [
     niri.nixosModules.niri
+    umbriel.nixosModules.default
     noctalia.nixosModules.default
     noctalia-greeter.nixosModules.default
     home-manager.nixosModules.default
@@ -22,6 +23,8 @@ in {
     users-home = lib.genAttrs usernames (username: {
       imports =
         [
+          inputs.umbriel.homeModules.default
+
           ../home/default.nix
           ../home/users/${username}/default.nix
         ]

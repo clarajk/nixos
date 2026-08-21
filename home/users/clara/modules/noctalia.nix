@@ -154,8 +154,8 @@
       source = "wallpaper";
 
       templates = {
-        builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "kcolorscheme" "niri" "qt" "starship"];
-        community_ids = ["zed" "prismlauncher" "steam" "papirus-icons" "lazygit" "yazi"];
+        builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "kcolorscheme" "niri" "qt" "starship" "umbriel"];
+        community_ids = ["zed" "prismlauncher" "steam" "papirus-icons" "lazygit" "yazi" "micro"];
       };
     };
 

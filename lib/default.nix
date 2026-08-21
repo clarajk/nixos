@@ -9,5 +9,6 @@
   sys = import ./sys.nix {inherit lib inputs rivet;};
   svc = import ./svc.nix {inherit lib;};
   niri = import ./niri.nix;
+  umbriel = import ./umbriel.nix {inherit lib;};
   theme = import ./theme.nix {inherit pkgs;};
 }

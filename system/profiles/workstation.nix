@@ -44,7 +44,7 @@
 
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
+      xdg-desktop-portal-umbriel
     ];
 
     config.common = {
@@ -52,8 +52,8 @@
 
       "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
 
-      "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
-      "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+      "org.freedesktop.impl.portal.ScreenCast" = ["umbriel"];
+      "org.freedesktop.impl.portal.Screenshot" = ["umbriel"];
     };
   };
 
@@ -95,6 +95,8 @@
       enable = true;
       package = pkgs.niri-unstable;
     };
+
+    umbriel.enable = true;
 
     noctalia = {
       enable = true;

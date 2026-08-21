@@ -189,12 +189,16 @@
           bottom-left = 8.0;
         };
         clip-to-geometry = true;
+        background-effect = {
+          blur = true;
+          xray = true;
+        };
       }
 
       {
         matches = app-ids [
           "^firefox$"
-          "^dev\.zed\.Zed$"
+          "^dev[.]zed[.]Zed$"
           "^steam$"
           "^zulip$"
         ];
@@ -203,25 +207,9 @@
       }
 
       {
-        excludes = [
-          {
-            app-id = "^firefox(-youtube)?$";
-            title = "YouTube";
-          }
-        ];
-
-        opacity = 0.90;
-        background-effect = {
-          blur = true;
-          xray = true;
-        };
-      }
-
-      {
         matches = [
           {
-            app-id = "^firefox(-youtube)?$";
-            title = "YouTube";
+            app-id = "^firefox-youtube$";
           }
         ];
 
@@ -245,7 +233,7 @@
     includes = lib.mkAfter [
       "noctalia.kdl"
       "animations/fold-window.kdl"
-      "inkwell.kdl"
+      # "inkwell.kdl"
     ];
   };
 

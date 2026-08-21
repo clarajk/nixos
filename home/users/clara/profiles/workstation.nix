@@ -10,6 +10,7 @@
 in {
   imports = [
     ../modules/niri.nix
+    ../modules/umbriel.nix
     ../modules/noctalia.nix
     ../modules/zed.nix
   ];
@@ -127,7 +128,15 @@ in {
     configFile."ghostty/cursor-smear.glsl".source = ../../../../assets/shaders/cursor-smear.glsl;
   };
 
-  programs.niri.settings.cursor = {inherit (cursor) theme size;};
+  programs = {
+    niri.settings.cursor = {inherit (cursor) theme size;};
+    umbriel = {
+      enable = true;
+      settings.input.cursor = {
+        inherit (cursor) theme size;
+      };
+    };
+  };
 
   dconf.settings."org/gnome/desktop/interface" = {
     inherit gtk-theme icon-theme;
