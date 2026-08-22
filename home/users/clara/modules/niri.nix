@@ -288,6 +288,15 @@
           blur = false;
           xray = false;
         };
+      }
+
+      {
+        matches = [
+          {
+            app-id = "^firefox(-youtube)?$";
+          }
+        ];
+
         popups.background-effect = {
           blur = false;
           xray = false;
