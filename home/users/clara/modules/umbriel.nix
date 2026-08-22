@@ -115,7 +115,6 @@
       {
         match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$";
         blur = true;
-        blur_ignore_alpha = 0.25;
         blur_popups = true;
       }
     ];
@@ -125,10 +124,13 @@
     in
       [
         {
-          match.is_focused = true;
           blur = true;
-          opacity = 0.90;
           blur_popups = true;
+        }
+
+        {
+          match.is_focused = true;
+          opacity = 0.90;
         }
 
         {

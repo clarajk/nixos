@@ -276,7 +276,7 @@
       }
 
       {
-        matches = app-ids [ "^dev[.]zed[.]Zed$" ];
+        matches = app-ids ["^dev[.]zed[.]Zed$"];
         draw-border-with-background = false;
       }
 
