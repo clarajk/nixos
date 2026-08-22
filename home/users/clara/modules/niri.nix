@@ -34,6 +34,7 @@
       top-left = false;
       top-right = false;
     };
+
     prefer-no-csd = true;
     screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
     hotkey-overlay.skip-at-startup = true;
@@ -45,6 +46,7 @@
       focus-ring.width = 2;
       border.enable = false;
       empty-workspace-above-first = true;
+      always-center-single-column = true;
     };
 
     binds = {
@@ -178,6 +180,27 @@
       "Ctrl+Alt+Delete".action.quit = {};
     };
 
+    layer-rules = [
+      {
+        matches = [
+          {
+            namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$";
+          }
+        ];
+
+        opacity = 0.85;
+
+        background-effect = {
+          blur = true;
+          xray = true;
+        };
+        popups.background-effect = {
+          blur = true;
+          xray = true;
+        };
+      }
+    ];
+
     window-rules = let
       inherit (rivet.niri) app-ids;
     in [
@@ -189,10 +212,56 @@
           bottom-left = 8.0;
         };
         clip-to-geometry = true;
+        popups.background-effect = {
+          blur = true;
+          xray = true;
+        };
+      }
+
+      {
+        matches = [
+          {
+            is-focused = true;
+          }
+        ];
+        opacity = 0.9;
         background-effect = {
           blur = true;
           xray = true;
         };
+      }
+
+      {
+        matches = [
+          {
+            is-focused = false;
+          }
+        ];
+        opacity = 0.85;
+        background-effect = {
+          blur = true;
+          xray = true;
+        };
+      }
+
+      {
+        matches = [
+          {
+            app-id = "^(xdg-desktop-portal|qalculate-gtk|org[.]pulseaudio[.]pavucontrol)$";
+          }
+        ];
+
+        open-floating = true;
+      }
+
+      {
+        matches = [
+          {
+            title = "^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)";
+          }
+        ];
+
+        open-floating = true;
       }
 
       {
@@ -209,7 +278,8 @@
       {
         matches = [
           {
-            app-id = "^firefox-youtube$";
+            app-id = "^firefox(-youtube)?$";
+            title = "YouTube";
           }
         ];
 
@@ -218,15 +288,12 @@
           blur = false;
           xray = false;
         };
+        popups.background-effect = {
+          blur = false;
+          xray = false;
+        };
       }
     ];
-
-    blur = {
-      passes = 3;
-      offset = 3;
-      noise = 0.02;
-      saturation = 1.2;
-    };
 
     debug.honor-xdg-activation-with-invalid-serial = true;
 

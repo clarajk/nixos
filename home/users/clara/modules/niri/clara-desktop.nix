@@ -17,6 +17,43 @@
       inherit (rivet.niri) app-ids;
     in [
       {
+        matches = [{app-id = "^dev.noctalia.Noctalia$";}];
+
+        min-width = 1020;
+        min-height = 900;
+        max-width = 1020;
+        max-height = 900;
+
+        open-floating = true;
+        open-focused = true;
+      }
+
+      {
+        matches = [{app-id = "^dev.noctalia.UmbrielSharePicker$";}];
+
+        min-width = 800;
+        min-height = 600;
+        max-width = 800;
+        max-height = 600;
+
+        open-floating = true;
+        open-focused = true;
+      }
+
+      {
+        matches = [{title = "^notificationtoasts_.+_desktop";}];
+
+        default-floating-position = {
+          x = 0;
+          y = 0;
+          relative-to = "bottom-right";
+        };
+
+        open-floating = true;
+        open-focused = false;
+      }
+
+      {
         matches = [{app-id = "^firefox-youtube$";}];
 
         open-fullscreen = true;
