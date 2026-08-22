@@ -269,10 +269,22 @@
           "^firefox$"
           "^dev[.]zed[.]Zed$"
           "^steam$"
-          "^zulip$"
         ];
 
         open-maximized = true;
+        open-maximized-to-edges = false;
+      }
+
+      {
+        matches = app-ids [ "^dev[.]zed[.]Zed$" ];
+        draw-border-with-background = false;
+      }
+
+      {
+        matches = app-ids ["^zulip$"];
+
+        open-maximized = true;
+        open-maximized-to-edges = true;
       }
 
       {

@@ -40,6 +40,7 @@ in {
         mongosh
         mongodb-compass
         zulip
+        vesktop
       ]
       ++ rivet.theme.packages;
 

@@ -310,11 +310,11 @@
     "scenefx": {
       "flake": false,
       "locked": {
-        "lastModified": 1787336523,
-        "narHash": "sha256-52ccG9hQlRY8SXY60stczrpkhxUr2aj0kLfwQt3lpW0=",
+        "lastModified": 1787367884,
+        "narHash": "sha256-CanY5gX81OUvTNpafLc9Bkdk26Xrlq99rkrQQd98EKM=",
         "ref": "umbriel",
-        "rev": "9522ab665f2e74f570dbf5cf8bdfa19ec2c12ce2",
-        "revCount": 318,
+        "rev": "a7ceecd5336edd3ac7245e65ab2ee1b12dfa97ca",
+        "revCount": 319,
         "type": "git",
         "url": "https://github.com/noctalia-dev/scenefx"
       },
@@ -332,11 +332,11 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1787345403,
-        "narHash": "sha256-K2pd7iWvGN4zJBZNjaEr47oegihUSAP2sCdFE7rnZEc=",
+        "lastModified": 1787405404,
+        "narHash": "sha256-fywTCQeCA76dztn/HuLaBGZtwXuy4N4ecMX1WBZVwU0=",
         "owner": "noctalia-dev",
         "repo": "umbriel",
-        "rev": "8f542ee5b8c0f0af8fb24655c82f98d65427ee56",
+        "rev": "cc7b80727eaab20e672cb956fc5e94761da03fba",
         "type": "github"
       },
       "original": {

@@ -168,9 +168,12 @@
         ] {
           default_maximize = true;
         })
-      ++ (app-ids ["^firefox(-youtube)?$"] {
+      ++ (app-ids ["^firefox-youtube$"] {
         opacity = 1.0;
         blur = false;
+        blur_popups = false;
+      })
+      ++ (app-ids ["^firefox$"] {
         blur_popups = false;
       });
   };
