@@ -41,6 +41,8 @@ in {
         mongodb-compass
         zulip
         vesktop
+        pavucontrol
+        qalculate-gtk
       ]
       ++ rivet.theme.packages;
 
