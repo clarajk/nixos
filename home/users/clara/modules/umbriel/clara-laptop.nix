@@ -1,8 +1,10 @@
 _: {
   programs.umbriel.settings = {
     keybinds = {
-      "XF86MonBrightnessUp" = "brightnessctl --class=backlight set +10%";
-      "XF86MonBrightnessDown" = "brightnessctl --class=backlight set 10%-";
+      "XF86MonBrightnessUp" = "spawn:brightnessctl --class=backlight set +10%";
+      "XF86MonBrightnessDown" = "spawn:brightnessctl --class=backlight set 10%-";
+
+      "submap[screenshot],1" = "spawn:noctalia msg screenshot-fullscreen eDP-1";
     };
 
     output.eDP-1 = {

@@ -188,8 +188,6 @@
           }
         ];
 
-        opacity = 0.85;
-
         background-effect = {
           blur = true;
           xray = true;

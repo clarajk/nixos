@@ -106,14 +106,32 @@
       "Mod+V" = "window-toggle-floating";
 
       "Ctrl+Alt+Delete" = "session-quit";
+
+      Escape = "submap:reset";
+      Print = "submap:screenshot";
+
+      "submap[screenshot],A" = "spawn:noctalia msg screenshot-fullscreen all";
+      "submap[screenshot],P" = "spawn:noctalia msg screenshot-fullscreen pick";
+      "submap[screenshot],R" = "spawn:noctalia msg screenshot-region";
+      "submap[screenshot],Escape" = "submap:reset";
     };
 
     appearance.corner_radius = 8;
-    layout.gap = 4;
+    layout = {
+      gap = 4;
+      mode = "scrolling";
+
+      scrolling = {
+        direction = "horizontal";
+        default_width_fraction = 0.5;
+        center_underfull_strip = true;
+      };
+    };
 
     layer_rule = [
       {
         match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$";
+        blur_ignore_alpha = 0.5;
         blur = true;
         blur_popups = true;
       }
@@ -175,7 +193,7 @@
         blur = false;
         blur_popups = false;
       })
-      ++ (app-ids ["^firefox$"] {
+      ++ (app-ids ["^firefox$" "^io.github.celluloid_player.Celluloid$"] {
         blur_popups = false;
       });
   };

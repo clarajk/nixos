@@ -13,7 +13,9 @@
     audio.enable_sounds = true;
     backdrop.enabled = true;
     weather.unit = "imperial";
-    osd.background_opacity = 0.85;
+    osd.background_opacity = 0.7;
+    notification.background_opacity = 0.7;
+    dock.background_opacity = 0.7;
     lockscreen.fingerprint = false;
 
     lockscreen_widgets = {
@@ -104,6 +106,7 @@
       margin_opposite_edge = 4;
       panel_overlap = 0;
       radius = 8;
+      background_opacity = 0.7;
 
       capsule_group = [
         {

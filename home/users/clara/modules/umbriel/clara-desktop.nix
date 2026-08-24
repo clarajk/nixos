@@ -7,11 +7,17 @@
       "MOZ_APP_REMOTINGNAME=firefox-youtube firefox --no-remote -P youtube"
     ];
 
+    keybinds = {
+      "submap[screenshot],1" = "spawn:noctalia msg screenshot-fullscreen DP-1";
+      "submap[screenshot],2" = "spawn:noctalia msg screenshot-fullscreen DP-2";
+    };
+
     output.DP-1 = {
       mode = "3440x1440@164.900";
       position = [0 0];
       scale = 1.0;
       vrr = "fullscreen";
+      hdr = "auto";
     };
 
     output.DP-2 = {
@@ -19,6 +25,7 @@
       position = [3440 0];
       scale = 1.0;
       vrr = "fullscreen";
+      hdr = "off";
       workspaces = ["YOUTUBE" "CHAT" "UTILS"];
     };
 
@@ -30,7 +37,14 @@
 
       forAll = display: workspaces: workspaces |> map display;
     in
-      forAll DP-2 ["YOUTUBE" "UTILS" "CHAT"];
+      (forAll DP-2 ["YOUTUBE" "CHAT"])
+      ++ [
+        {
+          name = "UTILS";
+          output = "DP-2";
+          layout.mode = "dwindle";
+        }
+      ];
 
     window_rule = let
       inherit (rivet.umbriel) app-ids;

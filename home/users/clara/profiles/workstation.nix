@@ -43,6 +43,7 @@ in {
         vesktop
         pavucontrol
         qalculate-gtk
+        libnotify
       ]
       ++ rivet.theme.packages;
 

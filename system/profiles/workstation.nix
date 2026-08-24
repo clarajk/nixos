@@ -96,7 +96,10 @@
       package = pkgs.niri-unstable;
     };
 
-    umbriel.enable = true;
+    umbriel = with pkgs; {
+      enable = true;
+      portalPackage = xdg-desktop-portal-umbriel;
+    };
 
     noctalia = {
       enable = true;
