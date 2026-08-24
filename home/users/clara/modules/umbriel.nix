@@ -167,6 +167,11 @@
           default_floating = true;
         }
       ]
+      ++ (app-ids ["^firefox(-youtube)?$"] {
+        match.title = "^Library$";
+        default_floating = true;
+        default_size = [800 600];
+      })
       ++ (app-ids ["^dev.noctalia.UmbrielSharePicker$"] {
         default_floating = true;
         default_size = [800 600];

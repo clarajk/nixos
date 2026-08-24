@@ -210,6 +210,10 @@
           bottom-left = 8.0;
         };
         clip-to-geometry = true;
+        background-effect = {
+          blur = true;
+          xray = true;
+        };
         popups.background-effect = {
           blur = true;
           xray = true;
@@ -223,10 +227,6 @@
           }
         ];
         opacity = 0.9;
-        background-effect = {
-          blur = true;
-          xray = true;
-        };
       }
 
       {
@@ -236,10 +236,6 @@
           }
         ];
         opacity = 0.85;
-        background-effect = {
-          blur = true;
-          xray = true;
-        };
       }
 
       {
@@ -279,10 +275,20 @@
       }
 
       {
-        matches = app-ids ["^zulip$"];
+        matches = [
+          {
+            app-id = "^firefox(-youtube)?$";
+            title = "^Library$";
+          }
+        ];
 
-        open-maximized = true;
-        open-maximized-to-edges = true;
+        open-floating = true;
+        open-focused = true;
+
+        min-width = 800;
+        min-height = 600;
+        max-width = 800;
+        max-height = 600;
       }
 
       {
@@ -317,6 +323,7 @@
     debug.honor-xdg-activation-with-invalid-serial = true;
 
     includes = lib.mkAfter [
+      "workspaces.kdl"
       "noctalia.kdl"
       "animations/fold-window.kdl"
       # "inkwell.kdl"

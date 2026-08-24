@@ -1,15 +1,27 @@
 {rivet, ...}: {
-  programs.niri.settings = {
-    workspaces = {
-      youtube.open-on-output = "DP-2";
-      utilities.open-on-output = "DP-2";
-      zulip.open-on-output = "DP-2";
-    };
+  # This is raw KDL instead of a Nix attrset because Nix attrsets do not guarantee
+  # preservation of insertion order, which is important for workspace ordering
+  # because Niri uses declaration order to determine workspace order on the selected output.
+  xdg.configFile."niri/workspaces.kdl".text = ''
+    workspace "youtube" {
+        open-on-output "DP-2"
+    }
 
+    workspace "chat" {
+        open-on-output "DP-2"
+    }
+
+    workspace "utilities" {
+        open-on-output "DP-2"
+    }
+  '';
+
+  programs.niri.settings = {
     spawn-at-startup = [
       {argv = ["transmission-gtk"];}
       {argv = ["solaar"];}
       {argv = ["zulip"];}
+      {argv = ["vesktop"];}
       {sh = "MOZ_APP_REMOTINGNAME=firefox-youtube firefox --no-remote -P youtube";}
     ];
 
@@ -74,9 +86,10 @@
       {
         matches = app-ids [
           "^zulip$"
+          "^vesktop$"
         ];
 
-        open-on-workspace = "zulip";
+        open-on-workspace = "chat";
         open-focused = false;
       }
 

@@ -171,6 +171,11 @@
     };
 
     shell = {
+      screenshot = {
+        directory = "${config.xdg.userDirs.pictures}/Screenshots";
+        filename_pattern = "Screenshot from %Y-%m-%d %H-%M-%S.png";
+      };
+
       avatar_path = "${config.xdg.userDirs.pictures}/avatar.jpg";
       date_format = "%A, %B %e, %Y";
       external_ip_enabled = true;
