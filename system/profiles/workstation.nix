@@ -50,8 +50,6 @@
     config.common = {
       default = ["gtk"];
 
-      "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
-
       "org.freedesktop.impl.portal.ScreenCast" = ["umbriel"];
       "org.freedesktop.impl.portal.Screenshot" = ["umbriel"];
     };
@@ -98,6 +96,7 @@
 
     umbriel = with pkgs; {
       enable = true;
+      package = umbriel;
       portalPackage = xdg-desktop-portal-umbriel;
     };
 

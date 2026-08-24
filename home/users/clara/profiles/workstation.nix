@@ -44,6 +44,7 @@ in {
         pavucontrol
         qalculate-gtk
         libnotify
+        plex-desktop
       ]
       ++ rivet.theme.packages;
 
@@ -79,6 +80,15 @@ in {
   };
 
   programs = {
+    niri.settings.cursor = {inherit (cursor) theme size;};
+
+    umbriel = {
+      enable = true;
+      settings.input.cursor = {
+        inherit (cursor) theme size;
+      };
+    };
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -130,16 +140,6 @@ in {
     };
 
     configFile."ghostty/cursor-smear.glsl".source = ../../../../assets/shaders/cursor-smear.glsl;
-  };
-
-  programs = {
-    niri.settings.cursor = {inherit (cursor) theme size;};
-    umbriel = {
-      enable = true;
-      settings.input.cursor = {
-        inherit (cursor) theme size;
-      };
-    };
   };
 
   dconf.settings."org/gnome/desktop/interface" = {

@@ -89,6 +89,7 @@ in {
     overlays = with inputs; [
       niri.overlays.niri
       xdg-desktop-portal-umbriel.overlays.default
+      umbriel.overlays.default
     ];
   };
 
