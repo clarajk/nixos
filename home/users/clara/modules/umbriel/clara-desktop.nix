@@ -4,6 +4,7 @@
       "transmission-gtk"
       "solaar"
       "zulip"
+      "vesktop"
       "MOZ_APP_REMOTINGNAME=firefox-youtube firefox --no-remote -P youtube"
     ];
 
@@ -29,22 +30,22 @@
       workspaces = ["YOUTUBE" "CHAT" "UTILS"];
     };
 
-    workspace = let
-      DP-2 = workspace: {
-        name = workspace;
+    workspace = [
+      {
+        name = "YOUTUBE";
         output = "DP-2";
-      };
-
-      forAll = display: workspaces: workspaces |> map display;
-    in
-      (forAll DP-2 ["YOUTUBE" "CHAT"])
-      ++ [
-        {
-          name = "UTILS";
-          output = "DP-2";
-          layout.mode = "dwindle";
-        }
-      ];
+      }
+      {
+        name = "CHAT";
+        output = "DP-2";
+        layout.mode = "dwindle";
+      }
+      {
+        name = "UTILS";
+        output = "DP-2";
+        layout.mode = "dwindle";
+      }
+    ];
 
     window_rule = let
       inherit (rivet.umbriel) app-ids;
@@ -69,7 +70,7 @@
         default_workspace = 2;
         default_focused = false;
       })
-      ++ (app-ids ["^zulip$"] {
+      ++ (app-ids ["^zulip$" "^vesktop$"] {
         default_workspace = 3;
         default_focused = false;
       })

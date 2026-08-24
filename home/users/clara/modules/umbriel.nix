@@ -96,11 +96,12 @@
       "Mod+Ctrl+Shift+WheelDown" = "column-move-right";
       "Mod+Ctrl+Shift+WheelUp" = "column-move-left";
 
-      "Mod+F" = "window-toggle-maximize";
+      # "Mod+F" = "window-toggle-maximize";
       "Mod+Shift+F" = "window-toggle-fullscreen";
 
       "Mod+M" = "window-toggle-maximize-to-edges";
 
+      "Mod+F" = "window-set-width:0.5";
       "Mod+Ctrl+F" = "window-set-width:1.0";
 
       "Mod+V" = "window-toggle-floating";
@@ -184,7 +185,6 @@
           "^firefox(-youtube)?$"
           "^dev[.]zed[.]Zed$"
           "^steam$"
-          "^zulip$"
         ] {
           default_maximize = true;
         })
@@ -193,7 +193,7 @@
         blur = false;
         blur_popups = false;
       })
-      ++ (app-ids ["^firefox$" "^io.github.celluloid_player.Celluloid$"] {
+      ++ (app-ids ["^firefox$" "^io.github.celluloid_player.Celluloid$" "^zulip$"] {
         blur_popups = false;
       });
   };
