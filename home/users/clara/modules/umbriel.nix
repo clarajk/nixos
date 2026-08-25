@@ -27,6 +27,11 @@
         sensitivity = 0.4;
       };
 
+      keyboard = {
+        layout = "us";
+        numlock_toggle = true;
+      };
+
       focus.follows_mouse = true;
     };
 
@@ -96,13 +101,13 @@
       "Mod+Ctrl+Shift+WheelDown" = "column-move-right";
       "Mod+Ctrl+Shift+WheelUp" = "column-move-left";
 
-      # "Mod+F" = "window-toggle-maximize";
+      "Mod+F" = "window-toggle-maximize";
       "Mod+Shift+F" = "window-toggle-fullscreen";
 
       "Mod+M" = "window-toggle-maximize-to-edges";
 
-      "Mod+F" = "window-set-width:0.5";
-      "Mod+Ctrl+F" = "window-set-width:1.0";
+      # "Mod+F" = "window-set-width:0.5";
+      # "Mod+Ctrl+F" = "window-set-width:1.0";
 
       "Mod+V" = "window-toggle-floating";
 
