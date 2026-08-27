@@ -163,6 +163,7 @@
     };
 
     wallpaper = {
+      directory = "${config.xdg.userDirs.pictures}/Wallpapers";
       transition_on_startup = true;
       automation = {
         enabled = true;

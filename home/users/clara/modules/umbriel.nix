@@ -35,6 +35,60 @@
       focus.follows_mouse = true;
     };
 
+    animation = {
+      enabled = true;
+
+      springs = {
+        window_move = {
+          damping = 0.65;
+          stiffness = 300;
+        };
+
+        overview = {
+          damping = 0.85;
+          stiffness = 800;
+        };
+      };
+
+      windows_in = {
+        enabled = true;
+        duration_ms = 400;
+        curve = "easeoutexpo";
+        style = "slide";
+      };
+
+      windows_out = {
+        enabled = true;
+        duration_ms = 400;
+        curve = "easeoutexpo";
+        style = "slide";
+      };
+
+      windows_move = {
+        enabled = true;
+        duration_ms = 346;
+        curve = "window_move";
+      };
+
+      workspaces = {
+        enabled = true;
+        duration_ms = 300;
+        curve = "easeoutexpo";
+      };
+
+      overview = {
+        enabled = true;
+        duration_ms = 212;
+        curve = "overview";
+      };
+
+      layers = {
+        enabled = true;
+        duration_ms = 200;
+        curve = "easeoutquad";
+      };
+    };
+
     keybinds = {
       "Mod+Return" = "spawn:ghostty +new-window";
       "Mod+Space" = "spawn:noctalia msg panel-toggle launcher";
