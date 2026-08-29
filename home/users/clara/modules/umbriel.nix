@@ -10,6 +10,8 @@
   programs.umbriel.settings = {
     include.files = ["./noctalia.toml"];
 
+    workspaces.empty_above = true;
+
     general = {
       autostart = ["firefox"];
       show_cheatsheet = false;
@@ -167,12 +169,21 @@
 
       "Ctrl+Alt+Delete" = "session-quit";
 
-      Escape = "submap:reset";
+      # Escape = "submap:reset";
       Print = "submap:screenshot";
 
-      "submap[screenshot],A" = "spawn:noctalia msg screenshot-fullscreen all";
-      "submap[screenshot],P" = "spawn:noctalia msg screenshot-fullscreen pick";
-      "submap[screenshot],R" = "spawn:noctalia msg screenshot-region";
+      "submap[screenshot],A" = {
+        action = "spawn:noctalia msg screenshot-fullscreen all";
+        submap = "reset";
+      };
+      "submap[screenshot],P" = {
+        action = "spawn:noctalia msg screenshot-fullscreen pick";
+        submap = "reset";
+      };
+      "submap[screenshot],R" = {
+        action = "spawn:noctalia msg screenshot-region";
+        submap = "reset";
+      };
       "submap[screenshot],Escape" = "submap:reset";
     };
 
@@ -217,7 +228,7 @@
         }
 
         {
-          match.app_id = "^(xdg-desktop-portal|qalculate-gtk|org[.]pulseaudio[.]pavucontrol)$";
+          match.app_id = "^(xdg-desktop-portal-gtk|qalculate-gtk|org[.]pulseaudio[.]pavucontrol)$";
           default_floating = true;
         }
 

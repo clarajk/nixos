@@ -204,9 +204,15 @@
       clock.format = "{:%l:%M %p} | {:%A, %B %e, %Y}";
       network.show_label = false;
       control-center.glyph = "settings";
-      audio_visualizer.show_when_idle = true;
       active_window.title_scroll = "always";
       Generic_Spacer.type = "spacer";
+
+      audio_visualizer = {
+        show_when_idle = true;
+        left = "media play-pause";
+        scroll_down = "volume-down 5";
+        scroll_up = "volume-up 5";
+      };
 
       workspaces = {
         active_pill_size = 1.85;

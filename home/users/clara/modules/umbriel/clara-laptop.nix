@@ -4,7 +4,10 @@ _: {
       "XF86MonBrightnessUp" = "spawn:brightnessctl --class=backlight set +10%";
       "XF86MonBrightnessDown" = "spawn:brightnessctl --class=backlight set 10%-";
 
-      "submap[screenshot],1" = "spawn:noctalia msg screenshot-fullscreen eDP-1";
+      "submap[screenshot],1" = {
+        action = "spawn:noctalia msg screenshot-fullscreen eDP-1";
+        submap = "reset";
+      };
     };
 
     output.eDP-1 = {

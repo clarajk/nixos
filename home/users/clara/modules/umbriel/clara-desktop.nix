@@ -9,8 +9,14 @@
     ];
 
     keybinds = {
-      "submap[screenshot],1" = "spawn:noctalia msg screenshot-fullscreen DP-1";
-      "submap[screenshot],2" = "spawn:noctalia msg screenshot-fullscreen DP-2";
+      "submap[screenshot],1" = {
+        action = "spawn:noctalia msg screenshot-fullscreen DP-1";
+        submap = "reset";
+      };
+      "submap[screenshot],2" = {
+        action = "spawn:noctalia msg screenshot-fullscreen DP-2";
+        submap = "reset";
+      };
     };
 
     output.DP-1 = {
