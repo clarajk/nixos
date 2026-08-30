@@ -19,6 +19,11 @@ in {
   virtualisation = {
     spiceUSBRedirection.enable = hostname == "clara-desktop";
 
+    incus = {
+      enable = true;
+      ui.enable = true;
+    };
+
     docker = {
       enable = true;
       enableOnBoot = true;
@@ -46,5 +51,5 @@ in {
     };
   };
 
-  users.users = lib.genAttrs virt-users (_: {extraGroups = ["docker" "libvirtd"];});
+  users.users = lib.genAttrs virt-users (_: {extraGroups = ["docker" "libvirtd" "incus-admin"];});
 }

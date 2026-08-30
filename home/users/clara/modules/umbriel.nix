@@ -228,6 +228,11 @@
         }
 
         {
+          match.app_id = "com.mitchellh.ghostty";
+          focus_on_activate = true;
+        }
+
+        {
           match.app_id = "^(xdg-desktop-portal-gtk|qalculate-gtk|org[.]pulseaudio[.]pavucontrol)$";
           default_floating = true;
         }

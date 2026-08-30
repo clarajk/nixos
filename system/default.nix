@@ -9,6 +9,7 @@ in {
   networking = {
     wireless.enable = true;
     firewall.enable = true;
+    nftables.enable = true;
     networkmanager = {
       enable = true;
       wifi.powersave = false;

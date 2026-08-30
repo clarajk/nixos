@@ -10,15 +10,11 @@ in {
     ./hardware-configuration.nix
   ];
 
-  networking = {
-    nftables.enable = true;
-
-    firewall.extraInputRules = ''
-      ip saddr 10.0.0.0/24 tcp dport 27017 accept
-      ip saddr 10.0.0.0/24 tcp dport 9091 accept
-      ip saddr 10.0.0.0/24 tcp dport 4533 accept
-    '';
-  };
+  networking.firewall.extraInputRules = ''
+    ip saddr 10.0.0.0/24 tcp dport 27017 accept
+    ip saddr 10.0.0.0/24 tcp dport 9091 accept
+    ip saddr 10.0.0.0/24 tcp dport 4533 accept
+  '';
 
   systemd.tmpfiles.rules = let
     pathsFor = group: paths: map (path: "d ${path} 2775 ${group} media -") paths;
