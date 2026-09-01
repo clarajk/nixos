@@ -138,8 +138,8 @@
 
       behavior = {
         lock = mkAction "lock" 600;
-        screen-off = mkAction "screen-off" 660;
-        lock-and-suspend = mkAction "lock-and-suspend" 900;
+        screen-off = mkAction "screen_off" 660;
+        lock-and-suspend = mkAction "lock_and_suspend" 900;
       };
     };
 
