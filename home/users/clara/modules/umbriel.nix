@@ -7,6 +7,7 @@
     ./umbriel/${hostname}.nix
   ];
 
+  programs.umbriel.validateConfig = false;
   programs.umbriel.settings = {
     include.files = ["./noctalia.toml"];
 
@@ -242,11 +243,6 @@
           default_floating = true;
         }
       ]
-      ++ (app-ids ["^firefox(-youtube)?$"] {
-        match.title = "^Library$";
-        default_floating = true;
-        default_size = [800 600];
-      })
       ++ (app-ids ["^dev.noctalia.UmbrielSharePicker$"] {
         default_floating = true;
         default_size = [800 600];
@@ -268,6 +264,13 @@
         ] {
           default_maximize = true;
         })
+      # This rule has to come AFTER the `default_maximize = true` rule above.
+      ++ (app-ids ["^firefox(-youtube)?$"] {
+        match.title = "^Library$";
+        default_floating = true;
+        default_maximize = false;
+        default_size = [800 600];
+      })
       ++ (app-ids ["^firefox-youtube$"] {
         opacity = 1.0;
         blur = false;
