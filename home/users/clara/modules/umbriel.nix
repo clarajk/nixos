@@ -7,9 +7,8 @@
     ./umbriel/${hostname}.nix
   ];
 
-  programs.umbriel.validateConfig = false;
   programs.umbriel.settings = {
-    include.files = ["./noctalia.toml"];
+    include.optional.files = ["./noctalia.toml"];
 
     workspaces.empty_above = true;
 
