@@ -149,8 +149,8 @@
       "Mod+Shift+Up" = "output-focus-up";
       "Mod+Shift+Right" = "output-focus-right";
 
-      "Mod+WheelDown" = "workspace-next";
-      "Mod+WheelUp" = "workspace-previous";
+      "Mod+WheelDown" = { action = "workspace-next"; cooldown_ms = 150; };
+      "Mod+WheelUp" = { action = "workspace-previous"; cooldown_ms = 150; };
 
       "Mod+WheelRight" = "window-focus-right";
       "Mod+WheelLeft" = "window-focus-left";
@@ -158,11 +158,11 @@
       "Mod+Ctrl+WheelRight" = "column-move-right";
       "Mod+Ctrl+WheelLeft" = "column-move-left";
 
-      "Mod+Shift+WheelDown" = "window-focus-right";
-      "Mod+Shift+WheelUp" = "window-focus-left";
+      "Mod+Shift+WheelDown" = { action = "window-focus-right"; cooldown_ms = 150; };
+      "Mod+Shift+WheelUp" = { action = "window-focus-left"; cooldown_ms = 150; };
 
-      "Mod+Ctrl+Shift+WheelDown" = "column-move-right";
-      "Mod+Ctrl+Shift+WheelUp" = "column-move-left";
+      "Mod+Ctrl+Shift+WheelDown" = { action = "column-move-right"; cooldown_ms = 150; };
+      "Mod+Ctrl+Shift+WheelUp" = { action = "column-move-left"; cooldown_ms = 150; };
 
       "Mod+F" = "window-toggle-maximize";
       "Mod+Shift+F" = "window-toggle-fullscreen";
