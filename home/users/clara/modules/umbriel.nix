@@ -41,12 +41,18 @@
     animation = {
       enabled = true;
 
+      beziers.ease_out_expo = [
+        0.16
+        1.0
+        0.3
+        1.0
+      ];
+
       springs = {
         window_move = {
           damping = 0.65;
           stiffness = 300;
         };
-
         overview = {
           damping = 0.85;
           stiffness = 800;
@@ -56,27 +62,27 @@
       windows_in = {
         enabled = true;
         duration_ms = 400;
-        curve = "easeoutexpo";
-        style = "slide";
+        curve = "ease_out_expo";
+        style = "none";
+        shader = ../../../../assets/shaders/fold-open.glsl;
       };
 
       windows_out = {
         enabled = true;
         duration_ms = 400;
-        curve = "easeoutexpo";
-        style = "slide";
-      };
-
-      windows_move = {
-        enabled = true;
-        duration_ms = 346;
-        curve = "window_move";
+        curve = "ease_out_expo";
+        shader = ../../../../assets/shaders/bob-close.glsl;
       };
 
       workspaces = {
         enabled = true;
         duration_ms = 300;
         curve = "easeoutexpo";
+      };
+
+      windows_move = {
+        enabled = true;
+        curve = "window_move";
       };
 
       overview = {
