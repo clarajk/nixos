@@ -213,7 +213,7 @@
 
     appearance.corner_radius = 8;
     layout = {
-      gap = 4;
+      gap = 8;
       mode = "scrolling";
 
       scrolling = {
@@ -286,6 +286,11 @@
           "^steam$"
         ] {
           default_maximize = true;
+        })
+      ++ (app-ids [ "^steam$" ] {
+          match.title = "^Special Offers$";
+          default_maximize = false;
+          default_floating = true;
         })
       # This rule has to come AFTER the `default_maximize = true` rule above.
       ++ (app-ids ["^firefox(-youtube)?$"] {

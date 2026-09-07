@@ -103,7 +103,7 @@
       ];
 
       margin_edge = 4;
-      margin_opposite_edge = 4;
+      # margin_opposite_edge = 4;
       panel_overlap = 0;
       radius = 8;
       background_opacity = 0.7;
